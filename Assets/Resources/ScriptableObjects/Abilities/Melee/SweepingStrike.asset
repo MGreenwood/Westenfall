@@ -21,3 +21,5 @@ MonoBehaviour:
   Class: 0
   tooltipDescription: An area of effect melee swing in the direction of the cursor
   tooltipFlavorText: Sweep the legs!
+  angle: 90
+  effectType: 0

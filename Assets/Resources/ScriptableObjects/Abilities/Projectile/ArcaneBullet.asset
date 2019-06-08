@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ArcaneBullet
   m_EditorClassIdentifier: 
   abilityName: Arcane Bullet
-  cooldown: 1
+  cooldown: 0.5
   range: 60
   cost: 7
   castTime: 0.4

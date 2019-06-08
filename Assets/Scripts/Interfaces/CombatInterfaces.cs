@@ -3,13 +3,6 @@ public delegate void HealthChanged();
 
 public interface IDamageable
 {
-    void Damage(float damage, Effect.EffectType effectType);
-    event DamageTaken damageTaken;
-    event HealthChanged healthChanged;
-}
-
-public interface IEnemyDamageable
-{
     void Damage(float damage, Effect.EffectType effectType, bool crit);
     event DamageTaken damageTaken;
     event HealthChanged healthChanged;
@@ -24,4 +17,10 @@ public interface IHealeable
 public interface IKillable
 {
     void Kill();
+}
+
+public interface ICanInvul
+{
+    void ActivateInvulnerability(float seconds);
+    bool IsInvulnerable();
 }

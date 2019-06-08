@@ -9,7 +9,7 @@ public class Projectile : Ability
     [SerializeField] Effect.EffectType effectType;
     [SerializeField] float speed;
 
-    public override void Cast()
+    public override bool Cast()
     {
         // create and set required variables
         GameObject projectile = Instantiate(prefab, owner.transform.position, Quaternion.identity);
@@ -18,5 +18,7 @@ public class Projectile : Ability
         // add projectile velocity towards mouse
         Vector3 mousePos = MouseManager.instance.GetMousePosition() + new Vector3(0, owner.transform.position.y, 0);
         projectile.GetComponent<Rigidbody>().velocity = (mousePos - owner.transform.position).normalized * speed;
+
+        return true;
     }
 }

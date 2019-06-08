@@ -22,7 +22,7 @@ public abstract class Ability : ScriptableObject
 
     public float CastTime { get { return castTime;}}
 
-    public virtual void Cast() { }
+    public virtual bool Cast() { return false; }
     public virtual void SetOwner(GameObject owner_)
     {
         owner = owner_;

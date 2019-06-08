@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, IEnemyDamageable, IKillable
+public class Enemy : MonoBehaviour, IDamageable, IKillable
 {
     private float health, speed;
     public float MAX_HEALTH;
@@ -11,6 +11,8 @@ public class Enemy : MonoBehaviour, IEnemyDamageable, IKillable
 
     public event DamageTaken damageTaken;
     public event HealthChanged healthChanged;
+        
+    public EnemySpawner.EnemyTypes _enemyType;
 
     private void Start()
     {
@@ -43,6 +45,12 @@ public class Enemy : MonoBehaviour, IEnemyDamageable, IKillable
 
     public void Kill()
     {
+        // drop any items
+
+        // activate death animation in subroutine
+
+
+        // remove this and place in death subroutine TODO
         Destroy(gameObject);
     }
 
