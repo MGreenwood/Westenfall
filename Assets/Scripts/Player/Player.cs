@@ -98,7 +98,7 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
 
     private void TriggerDeath()
     {
-        Debug.Log("Player Died");
+
     }
 
     public Attributes GetAttributes()

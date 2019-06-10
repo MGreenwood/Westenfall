@@ -127,6 +127,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MAX_HEALTH: 100
   combatText: {fileID: 1469646324497844, guid: d18e9be123b01d14bbaddc5b35535ef5, type: 3}
+  _attributes: {fileID: 0}
+  _enemyType: 0
 --- !u!114 &5008653531644073176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -346,6 +348,7 @@ GameObject:
   - component: {fileID: 5008653532809567290}
   - component: {fileID: 5008653532809567289}
   - component: {fileID: 5008653532809567288}
+  - component: {fileID: 1079883194991129748}
   m_Layer: 0
   m_Name: CombatTextCanvas
   m_TagString: Untagged
@@ -432,3 +435,15 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1079883194991129748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5008653532809567293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4947d6b46374a43aaed1717f8bc9c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

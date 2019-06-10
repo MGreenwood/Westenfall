@@ -104,6 +104,31 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a8a20e5896b9e084a9ee91abf254f6c3, type: 2}
   - {fileID: 11400000, guid: 26e496b9b8d5d1d49ac35a50ba93b2f9, type: 2}
   available: 0101
+--- !u!114 &3603296868071128577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1716201565774647451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1476c9360b0edd47b777db854e0cb78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dissolveShader: {fileID: 4800000, guid: 016e237c851322247929f0385bb8ca76, type: 3}
+--- !u!114 &3690358903864207638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1716201565774647451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df4947d6b46374a43aaed1717f8bc9c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!195 &5690695015786448313
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -210,14 +235,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5008653531644073180, guid: 8ab19a7542fcc584883ae5fc45d20538,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5008653531644073180, guid: 8ab19a7542fcc584883ae5fc45d20538,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 46b5398c321e3334bba0718a534a2ed3, type: 2}
     - target: {fileID: 5008653531644073186, guid: 8ab19a7542fcc584883ae5fc45d20538,
         type: 3}
       propertyPath: m_IsKinematic
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5008653531644073186, guid: 8ab19a7542fcc584883ae5fc45d20538,
-        type: 3}
-      propertyPath: m_UseGravity
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5008653531644073183, guid: 8ab19a7542fcc584883ae5fc45d20538,

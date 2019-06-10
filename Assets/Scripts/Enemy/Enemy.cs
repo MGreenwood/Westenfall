@@ -12,6 +12,9 @@ public class Enemy : MonoBehaviour, IDamageable, IKillable, IHasAttributes
     public event DamageTaken damageTaken;
     public event HealthChanged healthChanged;
 
+    public delegate void OnDeath();
+    public OnDeath onDeath;
+
     [SerializeField]
     Attributes _attributes;
     public EnemySpawner.EnemyTypes _enemyType;
@@ -58,7 +61,16 @@ public class Enemy : MonoBehaviour, IDamageable, IKillable, IHasAttributes
 
 
         // remove this and place in death subroutine TODO
-        Destroy(gameObject);
+        onDeath?.Invoke(); // inform subscribed methods that enemy has died
+        _behaviorManager.StopAllCoroutines();
+        _behaviorManager.enabled = false;
+        GetComponent<Collider>().enabled = false;
+        //Destroy(gameObject);
+    }
+
+    public void SubscribeToDeath(OnDeath method)
+    {
+        onDeath += method;
     }
 
     public Attributes GetAttributes() => _attributes;

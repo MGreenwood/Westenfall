@@ -117,7 +117,8 @@ public class EnemyBehaviorManager : MonoBehaviour
                 if (indexToUse != -1f && enemyAbilities.ActivateAbility(indexToUse))
                 {
                     usedAbility = true;
-                    Debug.Log($"Enemy at {transform.localPosition} cast ability {_abilities[indexToUse].abilityName} at {currentTarget.player.name}");
+                    _navActive = false;
+                    agent.destination = transform.position;
                 }
 
                 if (!usedAbility && !withinRange) // no available abilities within range, move towards tracked player
@@ -177,7 +178,7 @@ public class EnemyBehaviorManager : MonoBehaviour
         CalculateHighestAggro();
 
         _navActive = true;
-        agent.destination = currentTarget.player.transform.position;
+        agent.SetDestination(currentTarget.player.transform.position);
     }
 
     void CalculateHighestAggro()
@@ -237,7 +238,6 @@ public class EnemyBehaviorManager : MonoBehaviour
         {
             // just add the aggro
             playerAggro.AddAggro(damage * _aggroPerDamage);
-            Debug.Log($"{damage * _aggroPerDamage} aggro has been added from the {damage} damage");
         }
         else
         {
@@ -245,7 +245,7 @@ public class EnemyBehaviorManager : MonoBehaviour
             _playersInside.Add(new Aggro(player));
             _playersInside[_playersInside.Count - 1].AddAggro(damage * _aggroPerDamage);
             _playersInside[_playersInside.Count - 1].SetAsSeen();
-            Debug.Log($"{damage * _aggroPerDamage} aggro has been added from the {damage} damage and added player to list");
+            CalculateHighestAggro();
         }
 
         foreach (Aggro p in _playersInside)
