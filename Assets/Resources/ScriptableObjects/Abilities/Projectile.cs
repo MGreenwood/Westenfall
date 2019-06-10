@@ -16,8 +16,11 @@ public class Projectile : Ability
         projectile.GetComponent<ProjectileBehavior>().SetVars(damage, range, Effect.EffectType.Basic);
 
         // add projectile velocity towards mouse
+        /*
         Vector3 mousePos = MouseManager.instance.GetMousePosition() + new Vector3(0, owner.transform.position.y, 0);
-        projectile.GetComponent<Rigidbody>().velocity = (mousePos - owner.transform.position).normalized * speed;
+        projectile.GetComponent<Rigidbody>().velocity = (mousePos - owner.transform.position).normalized * speed;*/
+
+        projectile.GetComponent<Rigidbody>().velocity = (owner.transform.forward).normalized * speed;
 
         return true;
     }

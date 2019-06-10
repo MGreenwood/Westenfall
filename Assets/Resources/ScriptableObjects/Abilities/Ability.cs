@@ -27,4 +27,6 @@ public abstract class Ability : ScriptableObject
     {
         owner = owner_;
     }
+
+    public float GetRange() => range;
 }

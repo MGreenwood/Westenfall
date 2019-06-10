@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392e32794118e1742986e2cdc464c8d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _debug: 0
+  _debug: 1
 --- !u!4 &441195216
 Transform:
   m_ObjectHideFlags: 0
@@ -237,51 +237,6 @@ Transform:
   m_Father: {fileID: 1172317399}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &455113599
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 455113600}
-  - component: {fileID: 455113601}
-  m_Layer: 0
-  m_Name: EnemySpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &455113600
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 455113599}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.038957, y: 1.9550573, z: 25.938677}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &455113601
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 455113599}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77ff22448dfde5e47ab72a5119b4611d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _spawnType: 0
-  _rareSpawnChance: 0
 --- !u!1 &554329766
 GameObject:
   m_ObjectHideFlags: 0
@@ -564,8 +519,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 997716778}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.83, z: 692}
-  m_LocalScale: {x: 200, y: 1, z: 200}
+  m_LocalPosition: {x: 12, y: -3.83, z: 2008}
+  m_LocalScale: {x: 616.06, y: 3.0803, z: 616.06}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -664,7 +619,17 @@ MonoBehaviour:
   - {fileID: 3176632700382287915, guid: 295fed29c76bb664c864c49186d364cf, type: 3}
   _startingRoom: {fileID: 3118036998247821538, guid: 54bf3965367f538488252e460a82e03a,
     type: 3}
-  _possibleEnemies: []
+  _possibleEnemies:
+  - {fileID: 1716201565774647461, guid: 9ab66346810ca0e4696977fa9062b1d5, type: 3}
+  - {fileID: 1716201565774647461, guid: 9ab66346810ca0e4696977fa9062b1d5, type: 3}
+  - {fileID: 1716201565774647461, guid: 1ed5f0a50a0bcbc46871d68c0137774f, type: 3}
+  - {fileID: 1716201565774647461, guid: b967fdcdce772854db0fd9d5bab8d748, type: 3}
+  - {fileID: 1716201565774647461, guid: 01a6fd9d30e1bfb4fb30562482b63619, type: 3}
+  - {fileID: 1716201565774647461, guid: beeeb8ac24530fa4b9c9b7843b4b6820, type: 3}
+  - {fileID: 1716201565774647461, guid: 9746f71cf16fcae47bb15166c1842326, type: 3}
+  - {fileID: 1716201565774647461, guid: f8b121f9fc591fb4ab744f929df85a22, type: 3}
+  - {fileID: 1716201565774647461, guid: d8bee420960dd144490001d63f24f974, type: 3}
+  - {fileID: 1716201565774647461, guid: 6b5250ea2b7b9164882e4e7c0d5361fe, type: 3}
 --- !u!4 &1045158024
 Transform:
   m_ObjectHideFlags: 0

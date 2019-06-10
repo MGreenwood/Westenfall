@@ -75,17 +75,20 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul
     public void Damage(float damage, Effect.EffectType effectType, bool crit)
     {
         if (damage >= _health)
+        {
+            _health -= _health;
             TriggerDeath();
+        }
         else
         {
             _health -= damage;
 
-            switch(effectType)
+            switch (effectType)
             {
                 case Effect.EffectType.Basic:
-                {
+                    {
 
-                }
+                    }
                     break;
             }
         }
@@ -93,6 +96,6 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul
 
     private void TriggerDeath()
     {
-
+        Debug.Log("Player Died");
     }
 }

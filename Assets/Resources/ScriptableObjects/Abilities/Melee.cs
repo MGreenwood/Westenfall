@@ -5,14 +5,17 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Abilities/Melee")]
 public class Melee : Ability
 {
-    int precision = 10; // how many raycasts to shoot
+    int precision = 10; // how many raycasts to shoot, even numbers work best
 
     [SerializeField]
-    float _angle; // the attack angle
+    float _angle; // the attack angle, best if set in multiples of 10
     [SerializeField]
     Effect.EffectType _effectType;
     [SerializeField]
     GameObject _particleSystem;
+    [SerializeField]
+    LayerMask hitLayer;
+
 
     public override bool Cast()
     {
@@ -32,10 +35,13 @@ public class Melee : Ability
             if(GameManager.instance.Debug) // draw the raycasts
                 Debug.DrawLine(owner.transform.position, owner.transform.position + direction.normalized * range, Color.red, 1f);
 
-            RaycastHit hit;
-            if(Physics.Raycast(owner.transform.position, direction.normalized, out hit, range) && !hits.Contains(hit.collider.gameObject))
+            RaycastHit[] rayHits = Physics.RaycastAll(owner.transform.position, direction.normalized, range, hitLayer);
+            foreach (RaycastHit hit in rayHits)
             {
-                hits.Add(hit.collider.gameObject);
+                if (!hits.Contains(hit.collider.gameObject))
+                {
+                    hits.Add(hit.collider.gameObject);
+                }
             }
         }
 
