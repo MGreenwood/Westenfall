@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour, IDamageable, ICanInvul
+public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
 {
     public static Player instance;
 
@@ -16,7 +16,9 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul
     float _health;
     [SerializeField]
     PlayerClass.ClassType _classType;
-    PlayerAttributes _attributes;
+
+    [SerializeField]
+    Attributes _attributes;
     Inventory _inventory;
     Item[] _equipment;
 
@@ -48,7 +50,7 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul
 
     private void Start()
     {
-        _attributes = new PlayerAttributes();
+        _attributes = Instantiate(_attributes);
         _health = _maxHealth;
     }
 
@@ -72,7 +74,7 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul
         return _inventory.AddItem(item);
     }
 
-    public void Damage(float damage, Effect.EffectType effectType, bool crit)
+    public void Damage(float damage, Effect.EffectType effectType, bool crit, GameObject abilityOwner)
     {
         if (damage >= _health)
         {
@@ -97,5 +99,10 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul
     private void TriggerDeath()
     {
         Debug.Log("Player Died");
+    }
+
+    public Attributes GetAttributes()
+    {
+        return _attributes;
     }
 }

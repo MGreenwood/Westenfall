@@ -13,7 +13,15 @@ public class Projectile : Ability
     {
         // create and set required variables
         GameObject projectile = Instantiate(prefab, owner.transform.position, Quaternion.identity);
-        projectile.GetComponent<ProjectileBehavior>().SetVars(damage, range, Effect.EffectType.Basic);
+        Attributes.StatTypes bonusDamage;
+        if (_abilityType == Ability.AbilityType.Magic)
+            bonusDamage = Attributes.StatTypes.Magic;
+        else
+            bonusDamage = Attributes.StatTypes.Strength;
+
+        projectile.GetComponent<ProjectileBehavior>().SetVars(
+            damage + owner.GetComponent<IHasAttributes>().GetAttributes().GetStat(bonusDamage).value, // bonus damage from stats
+            range, Effect.EffectType.Basic, owner);
 
         // add projectile velocity towards mouse
         /*

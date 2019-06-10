@@ -7,12 +7,14 @@ public class ProjectileBehavior : MonoBehaviour
     float damage, maxRange;
     Effect.EffectType effect;
     Vector3 startPosition;
+    GameObject _owner;
     
-    public void SetVars(float damage_, float range, Effect.EffectType effect_)
+    public void SetVars(float damage_, float range, Effect.EffectType effect_, GameObject owner)
     {
         damage = damage_;
         maxRange = range;
         effect = effect_;
+        _owner = owner;
 
         startPosition = transform.position;
     }
@@ -36,14 +38,14 @@ public class ProjectileBehavior : MonoBehaviour
         {
             if (other.tag == "Enemy")
             {
-                other.gameObject.GetComponent<Enemy>().Damage(damage, effect, crit);
+                other.gameObject.GetComponent<Enemy>().Damage(damage, effect, crit, _owner);
             }
         }
         else if (gameObject.layer == LayerMask.NameToLayer("EnemyProjectile"))
         {
             if (other.tag == "Player")
             {
-                other.gameObject.GetComponent<Player>().Damage(damage, effect, crit);
+                other.gameObject.GetComponent<Player>().Damage(damage, effect, crit, _owner);
             }
         }
 

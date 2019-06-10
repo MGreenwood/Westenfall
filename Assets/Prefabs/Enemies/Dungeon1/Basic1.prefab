@@ -74,7 +74,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 20
+  m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5741196116419749327
 MonoBehaviour:
@@ -225,6 +225,12 @@ PrefabInstance:
       propertyPath: MAX_HEALTH
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 5008653531644073183, guid: 8ab19a7542fcc584883ae5fc45d20538,
+        type: 3}
+      propertyPath: _attributes
+      value: 
+      objectReference: {fileID: 11400000, guid: 83141b6ab5f8d07469155e5693db7161,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ab19a7542fcc584883ae5fc45d20538, type: 3}
 --- !u!1 &1716201565774647451 stripped

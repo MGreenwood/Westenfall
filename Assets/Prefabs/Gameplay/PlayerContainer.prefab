@@ -446,6 +446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _classType: 3
+  _attributes: {fileID: 11400000, guid: a167e2268c3bafc4fa6752701bb49276, type: 2}
 --- !u!114 &6881085809680930235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3659,6 +3660,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Layer
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6921417025477928470, guid: 8f1b5eb5c7afafa4486dc0dd40f5cee8,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f1b5eb5c7afafa4486dc0dd40f5cee8, type: 3}

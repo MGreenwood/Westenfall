@@ -21,6 +21,7 @@ MonoBehaviour:
   Class: 3
   tooltipDescription: Drive your blades forward dealing poison damage
   tooltipFlavorText: 
+  _abilityType: 1
   _angle: 45
   _effectType: 0
   _particleSystem: {fileID: 7853273839354257550, guid: afcb3eca04c5bd647ac7cab5b72bb290,

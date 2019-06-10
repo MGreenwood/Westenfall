@@ -1,9 +1,11 @@
-﻿public delegate void DamageTaken(float dmg, Effect.EffectType effectType, bool crit);
+﻿using UnityEngine;
+
+public delegate void DamageTaken(float dmg, Effect.EffectType effectType, bool crit);
 public delegate void HealthChanged();
 
 public interface IDamageable
 {
-    void Damage(float damage, Effect.EffectType effectType, bool crit);
+    void Damage(float damage, Effect.EffectType effectType, bool crit, GameObject abilityOwner);
     event DamageTaken damageTaken;
     event HealthChanged healthChanged;
 }
@@ -23,4 +25,9 @@ public interface ICanInvul
 {
     void ActivateInvulnerability(float seconds);
     bool IsInvulnerable();
+}
+
+public interface IHasAttributes
+{
+    Attributes GetAttributes();
 }

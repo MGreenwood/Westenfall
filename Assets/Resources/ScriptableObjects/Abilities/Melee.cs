@@ -53,7 +53,14 @@ public class Melee : Ability
                 {
                     bool isCrit = false; // TODO
 
-                    ob.GetComponent<IDamageable>().Damage(damage, _effectType, isCrit);
+                    Attributes.StatTypes bonusDamage;
+                    if (_abilityType == Ability.AbilityType.Magic)
+                        bonusDamage = Attributes.StatTypes.Magic;
+                    else
+                        bonusDamage = Attributes.StatTypes.Strength;
+
+                    ob.GetComponent<IDamageable>().Damage(damage + owner.GetComponent<IHasAttributes>().GetAttributes().GetStat(bonusDamage).value,
+                        _effectType, isCrit, owner);
                 }
             }
         }

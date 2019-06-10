@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Linq;
 
 public class EnemyBehaviorManager : MonoBehaviour
 {
@@ -23,6 +24,11 @@ public class EnemyBehaviorManager : MonoBehaviour
         public void SetAsSeen()
         {
             hasSeenInLOS = true;
+        }
+
+        public void AddAggro(float toAdd)
+        {
+            aggro += toAdd;
         }
     }
     EnemyAbilities enemyAbilities;
@@ -47,10 +53,18 @@ public class EnemyBehaviorManager : MonoBehaviour
     float _rotationSpeed = 0.2f;
 
     Aggro currentTarget = new Aggro(null);
-    bool _navActive = false;  
+    bool _navActive = false;
+
+    bool enemyActive = true;
 
     private void Start()
     {
+        if (AggroTrigger == null)
+        {
+            enemyActive = false;
+            return;
+        }
+
         enemyAbilities = GetComponent<EnemyAbilities>();
         triggerRange = AggroTrigger.GetComponent<SphereCollider>().radius;
         _abilities = enemyAbilities.GetAbilities();
@@ -127,6 +141,9 @@ public class EnemyBehaviorManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!enemyActive)
+            return;
+
         for(int i=0;i<_playersInside.Count;i++)
         {
             if(!_playersInside[i].hasSeenInLOS)
@@ -160,7 +177,6 @@ public class EnemyBehaviorManager : MonoBehaviour
         CalculateHighestAggro();
 
         _navActive = true;
-        agent.isStopped = false;
         agent.destination = currentTarget.player.transform.position;
     }
 
@@ -207,7 +223,39 @@ public class EnemyBehaviorManager : MonoBehaviour
             if (_playersInside.Count == 1) // this is the first player
                 currentTarget = _playersInside[0]; // make them the current target
         }
+    }
 
+    public void Damaged(GameObject playerObject, float damage)
+    {
+        if (!enemyActive)
+            return;
+
+        Player player = playerObject.GetComponent<Player>();
+        Aggro playerAggro = _playersInside.Find(x => x.player == player);
+
+        if(playerAggro.player != new Aggro().player) // player is already in list
+        {
+            // just add the aggro
+            playerAggro.AddAggro(damage * _aggroPerDamage);
+            Debug.Log($"{damage * _aggroPerDamage} aggro has been added from the {damage} damage");
+        }
+        else
+        {
+            // add to list
+            _playersInside.Add(new Aggro(player));
+            _playersInside[_playersInside.Count - 1].AddAggro(damage * _aggroPerDamage);
+            _playersInside[_playersInside.Count - 1].SetAsSeen();
+            Debug.Log($"{damage * _aggroPerDamage} aggro has been added from the {damage} damage and added player to list");
+        }
+
+        foreach (Aggro p in _playersInside)
+        {
+            if (player == p.player)
+            {
+                // player already being tracked
+                return;
+            }
+        }
     }
 
     public void OnForgetPlayer(Collider other)

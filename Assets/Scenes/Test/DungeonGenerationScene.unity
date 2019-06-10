@@ -621,15 +621,7 @@ MonoBehaviour:
     type: 3}
   _possibleEnemies:
   - {fileID: 1716201565774647461, guid: 9ab66346810ca0e4696977fa9062b1d5, type: 3}
-  - {fileID: 1716201565774647461, guid: 9ab66346810ca0e4696977fa9062b1d5, type: 3}
-  - {fileID: 1716201565774647461, guid: 1ed5f0a50a0bcbc46871d68c0137774f, type: 3}
-  - {fileID: 1716201565774647461, guid: b967fdcdce772854db0fd9d5bab8d748, type: 3}
-  - {fileID: 1716201565774647461, guid: 01a6fd9d30e1bfb4fb30562482b63619, type: 3}
-  - {fileID: 1716201565774647461, guid: beeeb8ac24530fa4b9c9b7843b4b6820, type: 3}
-  - {fileID: 1716201565774647461, guid: 9746f71cf16fcae47bb15166c1842326, type: 3}
-  - {fileID: 1716201565774647461, guid: f8b121f9fc591fb4ab744f929df85a22, type: 3}
-  - {fileID: 1716201565774647461, guid: d8bee420960dd144490001d63f24f974, type: 3}
-  - {fileID: 1716201565774647461, guid: 6b5250ea2b7b9164882e4e7c0d5361fe, type: 3}
+  - {fileID: 1716201565774647461, guid: 857ace934767f4742822745640a54e32, type: 3}
 --- !u!4 &1045158024
 Transform:
   m_ObjectHideFlags: 0
