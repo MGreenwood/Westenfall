@@ -31,12 +31,18 @@ public class PlayerAbilities : MonoBehaviour
     {
         //abilities = new Ability[numAbilities];
         //available = new bool[numAbilities];
-
+        SetupPlayer();
 
         abilities[0].SetOwner(gameObject);
         abilities[1].SetOwner(gameObject);
+        abilities[2].SetOwner(gameObject);
 
         castingComplete += CastingFinished; // subscribe to event for cast bar to invoke
+    }
+
+    void SetupPlayer() // load save
+    {
+
     }
 
     void SetAbility(int index, Ability ability)
@@ -55,15 +61,17 @@ public class PlayerAbilities : MonoBehaviour
         // INPUT
         if (!casting)
         {
-            
-
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && abilities[0] != null) // primary
             {
                 ActivateAbility(0);
             }
-            if (Input.GetMouseButtonDown(1))
+            else if (Input.GetMouseButtonDown(1) && abilities[1] != null) // secondary
             {
                 ActivateAbility(1);
+            }
+            else if (Input.GetKeyDown(KeyCode.Space) && abilities[2] != null) // movement
+            {
+                ActivateAbility(2);
             }
         }
 
@@ -77,19 +85,30 @@ public class PlayerAbilities : MonoBehaviour
 
     void CastingFinished()
     {
-        abilities[lastIndex].Cast();
+        if(abilities[lastIndex].Cast())
+        {
+            StartCoroutine(CooldownManager(lastIndex));
+        }
+
         casting = false;
-        StartCoroutine(CooldownManager(lastIndex));
     }
 
     void ActivateAbility(int index)
     {
         if (available[index] && !gcd)
         {
-            casting = true;
-            onCast?.Invoke(abilities[index].abilityName, abilities[index].CastTime, castingComplete);
             lastIndex = index;
             StartCoroutine(GlobalCooldown());
+
+            if (abilities[index].CastTime > 0f) // do not begin cast bar for instant cast abilities
+            {
+                casting = true;
+                onCast?.Invoke(abilities[index].abilityName, abilities[index].CastTime, castingComplete);
+            }
+            else
+            {
+                CastingFinished();
+            }
         }
     }
 

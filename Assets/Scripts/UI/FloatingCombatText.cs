@@ -13,7 +13,7 @@ public class FloatingCombatText : MonoBehaviour
 
     private void Start()
     {
-        GetComponent<IEnemyDamageable>().damageTaken += ShowCombatText;
+        GetComponent<IDamageable>().damageTaken += ShowCombatText;
         cam = Camera.main;
     }
 

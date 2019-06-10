@@ -6,12 +6,16 @@ public class DungeonGenerator : MonoBehaviour
 {
     private Room[] _rooms;
     [SerializeField] GameObject _player;
-    [SerializeField] GameObject[] _possible;
+    [SerializeField] GameObject[] _possibleRooms;
     [SerializeField] GameObject _startingRoom;
 
     Transform start;
 
     List<GameObject> _availableRooms;
+
+    [SerializeField]
+    List<Enemy> _possibleEnemies;
+    EnemySpawner _spawner;
 
     private void Start()
     {
@@ -24,7 +28,7 @@ public class DungeonGenerator : MonoBehaviour
     public void ReloadRoomList()
     {
         _availableRooms.Clear();
-        foreach (GameObject room in _possible)
+        foreach (GameObject room in _possibleRooms)
             _availableRooms.Add(room);
     }
     
@@ -56,7 +60,7 @@ public class DungeonGenerator : MonoBehaviour
             {
                 found = true;
 
-                int index = Random.Range(0, _availableRooms.Count - 1);
+                int index = Random.Range(0, _availableRooms.Count);
 
                 // find a suitable room TODO
                 GameObject roomOb = Instantiate(_availableRooms[index], currentExit.position, Quaternion.identity);
@@ -74,7 +78,7 @@ public class DungeonGenerator : MonoBehaviour
 
 
                 // if after rotation, the exit has a lower or same z value than entrance, pick a new room
-                if (paths[1].path.position.z <= currentExit.position.z)
+                if (paths[1].path.position.z < currentExit.position.z || paths[1].path.forward == Vector3.back)
                 {
                     found = false;
                     Destroy(roomOb);
@@ -84,6 +88,7 @@ public class DungeonGenerator : MonoBehaviour
                     _availableRooms.RemoveAt(index);
                     roomOb.isStatic = true;
                     currentExit = roomOb.GetComponent<Room>().GetPaths()[1].path;
+                    room.SpawnEnemies(ref _possibleEnemies); // Spawn the enemies
                 }
             }
         }

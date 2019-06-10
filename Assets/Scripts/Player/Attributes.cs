@@ -1,17 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 [System.Serializable]
-public class PlayerAttributes
+[CreateAssetMenu(menuName = "Attributes")]
+public class Attributes : ScriptableObject
 {
     public enum StatTypes { Strength, Dexterity, Intellect, Stamina, Magic, NONE }
 
+    [Serializable]
     public struct Stat
     {
         public StatTypes statType;
+        public float value;
     }
 
+    [SerializeField]
     List<Stat> _stats;
+
     bool _statsDirty = true;
      
     public Stat GetStat(StatTypes statType)

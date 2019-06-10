@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3211ab5760dd21b4d9ef08d3bd07260f, type: 3}
+  m_Name: ArcaneBulletEnemy
+  m_EditorClassIdentifier: 
+  abilityName: Arcane Bullet
+  cooldown: 2
+  range: 40
+  cost: 7
+  castTime: 0.4
+  damage: 15
+  Class: 1
+  tooltipDescription: Shoots a magical bullet in target direction
+  tooltipFlavorText: You can make anything with the magic bullet in one easy step
+  prefab: {fileID: 4512523674601113717, guid: 79e6f65150a07e9478c61fdf87dc78aa, type: 3}
+  effectType: 2
+  speed: 40

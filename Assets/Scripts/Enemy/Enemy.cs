@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, IEnemyDamageable, IKillable
+public class Enemy : MonoBehaviour, IDamageable, IKillable, IHasAttributes
 {
     private float health, speed;
     public float MAX_HEALTH;
@@ -12,9 +12,20 @@ public class Enemy : MonoBehaviour, IEnemyDamageable, IKillable
     public event DamageTaken damageTaken;
     public event HealthChanged healthChanged;
 
+    public delegate void OnDeath();
+    public OnDeath onDeath;
+
+    [SerializeField]
+    Attributes _attributes;
+    public EnemySpawner.EnemyTypes _enemyType;
+
+    EnemyBehaviorManager _behaviorManager;
+
     private void Start()
     {
         health = MAX_HEALTH;
+        _attributes = Instantiate(_attributes);
+        _behaviorManager = GetComponent<EnemyBehaviorManager>();
     }
 
     public float Health
@@ -29,7 +40,7 @@ public class Enemy : MonoBehaviour, IEnemyDamageable, IKillable
         MAX_HEALTH = MAX_HEALTH_;
     }
 
-    public void Damage(float dmg, Effect.EffectType effectType, bool crit)
+    public void Damage(float dmg, Effect.EffectType effectType, bool crit, GameObject abilityOwner)
     {
         health -= dmg;                       // remove damage from health
         health = health < 0 ? 0f : health;   // do not allow below 0
@@ -39,11 +50,28 @@ public class Enemy : MonoBehaviour, IEnemyDamageable, IKillable
 
         damageTaken?.Invoke(dmg, effectType, crit); // inform subscribers that HP has changed
         healthChanged?.Invoke();
+        _behaviorManager.Damaged(abilityOwner, dmg);
     }
 
     public void Kill()
     {
-        Destroy(gameObject);
+        // drop any items
+
+        // activate death animation in subroutine
+
+
+        // remove this and place in death subroutine TODO
+        onDeath?.Invoke(); // inform subscribed methods that enemy has died
+        _behaviorManager.StopAllCoroutines();
+        _behaviorManager.enabled = false;
+        GetComponent<Collider>().enabled = false;
+        //Destroy(gameObject);
     }
 
+    public void SubscribeToDeath(OnDeath method)
+    {
+        onDeath += method;
+    }
+
+    public Attributes GetAttributes() => _attributes;
 }

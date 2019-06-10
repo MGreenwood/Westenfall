@@ -7,12 +7,14 @@ public class ProjectileBehavior : MonoBehaviour
     float damage, maxRange;
     Effect.EffectType effect;
     Vector3 startPosition;
-
-    public void SetVars(float damage_, float range, Effect.EffectType effect_)
+    GameObject _owner;
+    
+    public void SetVars(float damage_, float range, Effect.EffectType effect_, GameObject owner)
     {
         damage = damage_;
         maxRange = range;
         effect = effect_;
+        _owner = owner;
 
         startPosition = transform.position;
     }
@@ -29,12 +31,22 @@ public class ProjectileBehavior : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Enemy")
-        {
-            // determine if it was a crit , Use enemy resistance as well as player stats
-            bool crit = false;
+        // determine if it was a crit , Use enemy resistance as well as player stats or vice versa TODO
+        bool crit = false;
 
-            other.gameObject.GetComponent<Enemy>().Damage(damage, effect, crit);
+        if (gameObject.layer == LayerMask.NameToLayer("PlayerProjectile"))
+        {
+            if (other.tag == "Enemy")
+            {
+                other.gameObject.GetComponent<Enemy>().Damage(damage, effect, crit, _owner);
+            }
+        }
+        else if (gameObject.layer == LayerMask.NameToLayer("EnemyProjectile"))
+        {
+            if (other.tag == "Player")
+            {
+                other.gameObject.GetComponent<Player>().Damage(damage, effect, crit, _owner);
+            }
         }
 
         // destroy on collide with anything

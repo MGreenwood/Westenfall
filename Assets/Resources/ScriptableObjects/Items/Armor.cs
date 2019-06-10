@@ -14,7 +14,8 @@ public class Armor : Item
     public enum Stats
     {
         Dexterity, Stamina, // Base Stats           
-        HealthRegen, ManaRegen, Defense, MagicDefence, Health, Mana // defensive / regen
+        HealthRegen, ManaRegen, Defense, MagicDefence, Health, Mana, // defensive / regen
+        MoveSpeed // misc
     } 
 
     public struct Stat

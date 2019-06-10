@@ -4,6 +4,8 @@ using UnityEngine;
 
 public abstract class Ability : ScriptableObject
 {
+    public enum AbilityType { Magic, Physical }
+
     public string abilityName;
     public float cooldown;
     protected GameObject owner;
@@ -16,15 +18,17 @@ public abstract class Ability : ScriptableObject
     [SerializeField] protected PlayerClass.ClassType Class;
     [SerializeField] protected string tooltipDescription;
     [SerializeField] protected string tooltipFlavorText;
-
+    [SerializeField] protected AbilityType _abilityType;
 
     public Ability() { }
 
     public float CastTime { get { return castTime;}}
 
-    public virtual void Cast() { }
+    public virtual bool Cast() { return false; }
     public virtual void SetOwner(GameObject owner_)
     {
         owner = owner_;
     }
+
+    public float GetRange() => range;
 }

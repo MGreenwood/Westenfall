@@ -73,7 +73,7 @@ Material:
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
-    - Color_9AE234CB: {r: 0, g: 0.74838066, b: 1, a: 0}
-    - Color_DE60BD48: {r: 1, g: 1, b: 1, a: 0}
+    - Color_9AE234CB: {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 1}
+    - Color_DE60BD48: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

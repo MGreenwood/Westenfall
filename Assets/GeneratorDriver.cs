@@ -30,7 +30,7 @@ public class GeneratorDriver : MonoBehaviour
             else
                 gen.SpawnPlayer();
 
-            gen.Generate(5, 8, 25, _hasSpawned);
+            gen.Generate(7, 8, 25, _hasSpawned);
 
             _hasSpawned = true;
         }
