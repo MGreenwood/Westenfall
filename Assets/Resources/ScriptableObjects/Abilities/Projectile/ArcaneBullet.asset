@@ -15,12 +15,13 @@ MonoBehaviour:
   abilityName: Arcane Bullet
   cooldown: 0.5
   range: 60
-  cost: 7
+  cost: 5
   castTime: 0.4
   damage: 15
   Class: 1
   tooltipDescription: Shoots a magical bullet in target direction
   tooltipFlavorText: You can make anything with the magic bullet in one easy step
+  _abilityType: 0
   prefab: {fileID: 4512523674601113717, guid: 7cd94734d4de74449a78575c643c326c, type: 3}
   effectType: 2
   speed: 40

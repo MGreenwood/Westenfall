@@ -7,7 +7,7 @@ public class Weapon : Item
 {
     public enum Stats { Strength, Intellect, // Base Stats
                         PhysicalDamage, MagicDamage, CritRate, CritDamage, MinDamage, MaxDamage, // Damage Mods
-                        CooldownReduction // Misc
+                        CooldownReduction, HpOnHit // Misc
     } 
     public struct Stat
     {

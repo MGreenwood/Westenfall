@@ -10,10 +10,11 @@ public class Enemy : MonoBehaviour, IDamageable, IKillable, IHasAttributes
     public GameObject combatText;
 
     public event DamageTaken damageTaken;
-    public event HealthChanged healthChanged;
 
     public delegate void OnDeath();
     public OnDeath onDeath;
+    public delegate void HealthChanged();
+    public HealthChanged healthChanged;
 
     [SerializeField]
     Attributes _attributes;
@@ -40,7 +41,7 @@ public class Enemy : MonoBehaviour, IDamageable, IKillable, IHasAttributes
         MAX_HEALTH = MAX_HEALTH_;
     }
 
-    public void Damage(float dmg, Effect.EffectType effectType, bool crit, GameObject abilityOwner)
+    public void Damage(int dmg, Effect.EffectType effectType, bool crit, GameObject abilityOwner)
     {
         health -= dmg;                       // remove damage from health
         health = health < 0 ? 0f : health;   // do not allow below 0

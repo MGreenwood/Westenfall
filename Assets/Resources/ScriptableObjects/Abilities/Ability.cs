@@ -11,9 +11,9 @@ public abstract class Ability : ScriptableObject
     protected GameObject owner;
 
     [SerializeField] protected float range;
-    [SerializeField] protected float cost;
+    [SerializeField] protected int cost;
     [SerializeField] protected float castTime;
-    [SerializeField] protected float damage;
+    [SerializeField] protected int damage;
 
     [SerializeField] protected PlayerClass.ClassType Class;
     [SerializeField] protected string tooltipDescription;
@@ -31,4 +31,5 @@ public abstract class Ability : ScriptableObject
     }
 
     public float GetRange() => range;
+    public int GetCost() => cost; 
 }

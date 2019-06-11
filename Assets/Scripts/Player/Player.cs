@@ -12,8 +12,10 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
         instance = this;
     }
 
-    float _maxHealth = 100;
-    float _health;
+    int _maxHealth = 100;
+    int _health;
+    int _maxMana = 100;
+    int _mana;
     [SerializeField]
     PlayerClass.ClassType _classType;
 
@@ -25,6 +27,11 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
     bool isInvulnerable = false;
 
     int _temp;
+
+    public delegate void HealthChanged();
+    public HealthChanged D_HealthChanged;
+    public delegate void ManaChanged();
+    public ManaChanged D_ManaChanged;
 
     public event DamageTaken damageTaken;
     
@@ -52,6 +59,7 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
     {
         _attributes = Instantiate(_attributes);
         _health = _maxHealth;
+        _mana = _maxMana;
     }
 
     public void SetClass(PlayerClass.ClassType classType)
@@ -74,7 +82,7 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
         return _inventory.AddItem(item);
     }
 
-    public void Damage(float damage, Effect.EffectType effectType, bool crit, GameObject abilityOwner)
+    public void Damage(int damage, Effect.EffectType effectType, bool crit, GameObject abilityOwner)
     {
         if (damage >= _health)
         {
@@ -84,6 +92,7 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
         else
         {
             _health -= damage;
+            D_HealthChanged?.Invoke();
 
             switch (effectType)
             {
@@ -104,5 +113,26 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
     public Attributes GetAttributes()
     {
         return _attributes;
+    }
+
+    public void RemoveMana(int val)
+    {
+        _mana -= val;
+        D_ManaChanged?.Invoke();
+    }
+
+    public int GetMaxHealth() => _maxHealth;
+    public int GetCurrentHealth() => _health;
+    public int GetMaxMana() => _maxMana;
+    public int GetCurrentMana() => _mana;
+
+    public void SubscribeToHealthChanged(HealthChanged hc)
+    {
+        D_HealthChanged += hc;
+    }
+
+    public void SubscribeToManaChanged(ManaChanged mc)
+    {
+        D_ManaChanged += mc;
     }
 }

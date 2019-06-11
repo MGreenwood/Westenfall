@@ -46,6 +46,7 @@ public class EnemyAbilities : MonoBehaviour
         if(abilities[lastIndex].Cast())
         {
             StartCoroutine(CooldownManager(lastIndex));
+            StartCoroutine(GlobalCooldown());
         }
 
         casting = false;
@@ -58,7 +59,6 @@ public class EnemyAbilities : MonoBehaviour
         if (available[index] && !gcd && !casting)
         {
             lastIndex = index;
-            StartCoroutine(GlobalCooldown());
 
             if (abilities[index].CastTime > 0f) // do not begin cast bar for instant cast abilities
             {

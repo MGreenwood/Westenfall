@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class ProjectileBehavior : MonoBehaviour
 {
-    float damage, maxRange;
+    int damage;
+    float maxRange;
     Effect.EffectType effect;
     Vector3 startPosition;
     GameObject _owner;
     
-    public void SetVars(float damage_, float range, Effect.EffectType effect_, GameObject owner)
+    public void SetVars(int damage_, float range, Effect.EffectType effect_, GameObject owner)
     {
         damage = damage_;
         maxRange = range;

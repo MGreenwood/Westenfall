@@ -59,7 +59,7 @@ public class Melee : Ability
                     else
                         bonusDamage = Attributes.StatTypes.Strength;
 
-                    ob.GetComponent<IDamageable>().Damage(damage + owner.GetComponent<IHasAttributes>().GetAttributes().GetStat(bonusDamage).value,
+                    ob.GetComponent<IDamageable>().Damage(damage + (int)owner.GetComponent<IHasAttributes>().GetAttributes().GetStat(bonusDamage).value,
                         _effectType, isCrit, owner);
                 }
             }

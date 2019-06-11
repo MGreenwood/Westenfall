@@ -23,6 +23,8 @@ public class PlayerAbilities : MonoBehaviour
     public delegate void CastingComplete(); // invoked by cast bar when timer is up
     private CastingComplete castingComplete;
 
+    Player player;
+
     private bool gcd = false;
 
     public const float Global_Cooldown = 0.3f;
@@ -42,7 +44,7 @@ public class PlayerAbilities : MonoBehaviour
 
     void SetupPlayer() // load save
     {
-
+        player = GetComponent<Player>();
     }
 
     void SetAbility(int index, Ability ability)
@@ -88,6 +90,7 @@ public class PlayerAbilities : MonoBehaviour
         if(abilities[lastIndex].Cast())
         {
             StartCoroutine(CooldownManager(lastIndex));
+            player.RemoveMana(abilities[lastIndex].GetCost());
         }
 
         casting = false;
@@ -95,7 +98,7 @@ public class PlayerAbilities : MonoBehaviour
 
     void ActivateAbility(int index)
     {
-        if (available[index] && !gcd)
+        if (available[index] && !gcd && player.GetCurrentMana() > abilities[index].GetCost())
         {
             lastIndex = index;
             StartCoroutine(GlobalCooldown());

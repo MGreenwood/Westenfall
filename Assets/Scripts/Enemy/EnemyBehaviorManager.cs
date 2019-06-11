@@ -113,6 +113,7 @@ public class EnemyBehaviorManager : MonoBehaviour
                     if (inRange)
                         withinRange = true;
                 }
+
                 // ability was chosen and was successfully cast
                 if (indexToUse != -1f && enemyAbilities.ActivateAbility(indexToUse))
                 {

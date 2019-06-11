@@ -20,7 +20,7 @@ public class Projectile : Ability
             bonusDamage = Attributes.StatTypes.Strength;
 
         projectile.GetComponent<ProjectileBehavior>().SetVars(
-            damage + owner.GetComponent<IHasAttributes>().GetAttributes().GetStat(bonusDamage).value, // bonus damage from stats
+            damage + (int)owner.GetComponent<IHasAttributes>().GetAttributes().GetStat(bonusDamage).value, // bonus damage from stats
             range, Effect.EffectType.Basic, owner);
 
         // add projectile velocity towards mouse
