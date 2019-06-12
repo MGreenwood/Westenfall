@@ -41,7 +41,7 @@ public class Enemy : MonoBehaviour, IDamageable, IKillable, IHasAttributes
         MAX_HEALTH = MAX_HEALTH_;
     }
 
-    public void Damage(int dmg, Effect.EffectType effectType, bool crit, GameObject abilityOwner)
+    public void Damage(int dmg, Effect.AbilityEffect effect, bool crit, GameObject abilityOwner)
     {
         health -= dmg;                       // remove damage from health
         health = health < 0 ? 0f : health;   // do not allow below 0
@@ -49,7 +49,7 @@ public class Enemy : MonoBehaviour, IDamageable, IKillable, IHasAttributes
         if (health <= 0)
             Kill();
 
-        damageTaken?.Invoke(dmg, effectType, crit); // inform subscribers that HP has changed
+        damageTaken?.Invoke(dmg, effect, crit); // inform subscribers that HP has changed
         healthChanged?.Invoke();
         _behaviorManager.Damaged(abilityOwner, dmg);
     }

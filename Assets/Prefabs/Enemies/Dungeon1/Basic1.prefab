@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dissolveShader: {fileID: 4800000, guid: 016e237c851322247929f0385bb8ca76, type: 3}
+  reduction: 0.02
 --- !u!114 &3690358903864207638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +180,22 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Basic1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5008653531644073183, guid: 8ab19a7542fcc584883ae5fc45d20538,
+        type: 3}
+      propertyPath: MAX_HEALTH
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5008653531644073183, guid: 8ab19a7542fcc584883ae5fc45d20538,
+        type: 3}
+      propertyPath: _attributes
+      value: 
+      objectReference: {fileID: 11400000, guid: 83141b6ab5f8d07469155e5693db7161,
+        type: 2}
+    - target: {fileID: 5008653531644073186, guid: 8ab19a7542fcc584883ae5fc45d20538,
+        type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5008653531644073182, guid: 8ab19a7542fcc584883ae5fc45d20538,
         type: 3}
@@ -245,22 +262,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: 46b5398c321e3334bba0718a534a2ed3, type: 2}
-    - target: {fileID: 5008653531644073186, guid: 8ab19a7542fcc584883ae5fc45d20538,
-        type: 3}
-      propertyPath: m_IsKinematic
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5008653531644073183, guid: 8ab19a7542fcc584883ae5fc45d20538,
-        type: 3}
-      propertyPath: MAX_HEALTH
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 5008653531644073183, guid: 8ab19a7542fcc584883ae5fc45d20538,
-        type: 3}
-      propertyPath: _attributes
-      value: 
-      objectReference: {fileID: 11400000, guid: 83141b6ab5f8d07469155e5693db7161,
-        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ab19a7542fcc584883ae5fc45d20538, type: 3}
 --- !u!1 &1716201565774647451 stripped

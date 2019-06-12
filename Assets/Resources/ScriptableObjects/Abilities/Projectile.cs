@@ -6,7 +6,7 @@ using UnityEngine;
 public class Projectile : Ability
 {
     [SerializeField] GameObject prefab;
-    [SerializeField] Effect.EffectType effectType;
+    [SerializeField] Effect.AbilityEffect effect;
     [SerializeField] float speed;
 
     public override bool Cast()
@@ -21,7 +21,7 @@ public class Projectile : Ability
 
         projectile.GetComponent<ProjectileBehavior>().SetVars(
             damage + (int)owner.GetComponent<IHasAttributes>().GetAttributes().GetStat(bonusDamage).value, // bonus damage from stats
-            range, Effect.EffectType.Basic, owner);
+            range, effect, owner);
 
         // add projectile velocity towards mouse
         /*

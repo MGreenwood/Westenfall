@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
-public delegate void DamageTaken(float dmg, Effect.EffectType effectType, bool crit);
+public delegate void DamageTaken(float dmg, Effect.AbilityEffect effect, bool crit);
 
 public interface IDamageable
 {
-    void Damage(int damage, Effect.EffectType effectType, bool crit, GameObject abilityOwner);
+    void Damage(int damage, Effect.AbilityEffect effectType, bool crit, GameObject abilityOwner);
     event DamageTaken damageTaken;
 }
 

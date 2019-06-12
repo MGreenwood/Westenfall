@@ -11,6 +11,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerModelRiggedAnim Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 9500000, guid: 7467c7f746e58d54abd1a39e6202bd03, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 94ab756ad2645e542b72c524c63a236c, type: 2}
+    - target: {fileID: 9500000, guid: 7467c7f746e58d54abd1a39e6202bd03, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 400506, guid: 7467c7f746e58d54abd1a39e6202bd03, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -67,14 +75,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.02
       objectReference: {fileID: 0}
-    - target: {fileID: 9500000, guid: 7467c7f746e58d54abd1a39e6202bd03, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 94ab756ad2645e542b72c524c63a236c, type: 2}
-    - target: {fileID: 9500000, guid: 7467c7f746e58d54abd1a39e6202bd03, type: 3}
-      propertyPath: m_ApplyRootMotion
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7467c7f746e58d54abd1a39e6202bd03, type: 3}
 --- !u!4 &3034136692069105229 stripped
@@ -93,6 +93,18 @@ PrefabInstance:
     - target: {fileID: 100010, guid: 0de4407f673b662469d46a3677240b2d, type: 3}
       propertyPath: m_Name
       value: Wing_Demon
+      objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: 0de4407f673b662469d46a3677240b2d, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 100014, guid: 0de4407f673b662469d46a3677240b2d, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 100014, guid: 0de4407f673b662469d46a3677240b2d, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: 0de4407f673b662469d46a3677240b2d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -149,10 +161,6 @@ PrefabInstance:
     - target: {fileID: 400010, guid: 0de4407f673b662469d46a3677240b2d, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.41208
-      objectReference: {fileID: 0}
-    - target: {fileID: 100014, guid: 0de4407f673b662469d46a3677240b2d, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0de4407f673b662469d46a3677240b2d, type: 3}

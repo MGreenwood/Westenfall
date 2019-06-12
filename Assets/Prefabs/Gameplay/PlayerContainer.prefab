@@ -1183,9 +1183,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: ac7713dde86eed6499d863852ac145b5, type: 2}
   - {fileID: 11400000, guid: 5c9689e9286348241a7c876edb7f4b8a, type: 2}
   - {fileID: 11400000, guid: bcb533a18dda189458896ccf673795c7, type: 2}
+  - {fileID: 11400000, guid: ae643ffc78f105a48a34e6702ba23820, type: 2}
   - {fileID: 0}
-  - {fileID: 0}
-  available: 010101
+  available: 0101010100
 --- !u!1 &6881085810250217418
 GameObject:
   m_ObjectHideFlags: 0

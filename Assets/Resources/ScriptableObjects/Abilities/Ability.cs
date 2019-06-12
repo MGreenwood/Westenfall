@@ -32,4 +32,6 @@ public abstract class Ability : ScriptableObject
 
     public float GetRange() => range;
     public int GetCost() => cost; 
+
+    public GameObject GetOwner() => owner;
 }

@@ -130,17 +130,6 @@ public class EnemyBehaviorManager : MonoBehaviour
         }
     }
 
-    // TODO
-
-
-
-        // if enemy is hit with an attack, add to aggro if not in it
-
-
-
-        // TODO
-
-
     private void FixedUpdate()
     {
         if (!enemyActive)

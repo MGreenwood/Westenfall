@@ -10,7 +10,7 @@ public class Melee : Ability
     [SerializeField]
     float _angle; // the attack angle, best if set in multiples of 10
     [SerializeField]
-    Effect.EffectType _effectType;
+    Effect.AbilityEffect _effect;
     [SerializeField]
     GameObject _particleSystem;
     [SerializeField]
@@ -60,7 +60,7 @@ public class Melee : Ability
                         bonusDamage = Attributes.StatTypes.Strength;
 
                     ob.GetComponent<IDamageable>().Damage(damage + (int)owner.GetComponent<IHasAttributes>().GetAttributes().GetStat(bonusDamage).value,
-                        _effectType, isCrit, owner);
+                        _effect, isCrit, owner);
                 }
             }
         }

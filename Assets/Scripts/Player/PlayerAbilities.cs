@@ -38,6 +38,7 @@ public class PlayerAbilities : MonoBehaviour
         abilities[0].SetOwner(gameObject);
         abilities[1].SetOwner(gameObject);
         abilities[2].SetOwner(gameObject);
+        abilities[3].SetOwner(gameObject);
 
         castingComplete += CastingFinished; // subscribe to event for cast bar to invoke
     }
@@ -74,6 +75,10 @@ public class PlayerAbilities : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.Space) && abilities[2] != null) // movement
             {
                 ActivateAbility(2);
+            }
+            else if (Input.GetKeyDown(KeyCode.E) && abilities[3] != null) // movement
+            {
+                ActivateAbility(3);
             }
         }
 

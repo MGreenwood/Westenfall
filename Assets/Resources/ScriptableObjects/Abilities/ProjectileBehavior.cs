@@ -6,11 +6,11 @@ public class ProjectileBehavior : MonoBehaviour
 {
     int damage;
     float maxRange;
-    Effect.EffectType effect;
+    Effect.AbilityEffect effect;
     Vector3 startPosition;
     GameObject _owner;
     
-    public void SetVars(int damage_, float range, Effect.EffectType effect_, GameObject owner)
+    public void SetVars(int damage_, float range, Effect.AbilityEffect effect_, GameObject owner)
     {
         damage = damage_;
         maxRange = range;

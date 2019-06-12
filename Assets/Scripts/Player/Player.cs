@@ -82,7 +82,7 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
         return _inventory.AddItem(item);
     }
 
-    public void Damage(int damage, Effect.EffectType effectType, bool crit, GameObject abilityOwner)
+    public void Damage(int damage, Effect.AbilityEffect effect, bool crit, GameObject abilityOwner)
     {
         if (damage >= _health)
         {
@@ -94,7 +94,7 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
             _health -= damage;
             D_HealthChanged?.Invoke();
 
-            switch (effectType)
+            switch (effect.effectType)
             {
                 case Effect.EffectType.Basic:
                     {
