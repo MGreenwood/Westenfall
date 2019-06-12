@@ -81,8 +81,6 @@ public class InventoryItemObject : MonoBehaviour,
     {
         if(_dragging)
         {
-            
-
             bool foundHome = false;
 
             // check if inside a droppable area
@@ -104,10 +102,7 @@ public class InventoryItemObject : MonoBehaviour,
                         {
                             // move the item
                             inv.inventory.UpdatePosition(this, newIndex);
-
-                            Debug.Log(string.Format("Index {0},{1} at position {2},{3}", 
-                                newIndex._x, newIndex._y, pointerEventData.position.x, pointerEventData.position.y));
-
+                            _index = newIndex;
                             foundHome = true;
                         }
                     }

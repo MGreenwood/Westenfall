@@ -61,9 +61,7 @@ public class BasicGroundAOE : MonoBehaviour
         GetComponent<Rigidbody>().AddForce(Vector3.zero);
         List<Collider> toDestroy = new List<Collider>();
 
-        float startTime = Time.fixedTime;
-
-        while (startTime + _ability.GetDuration() > Time.fixedTime)
+        while (Application.isPlaying)
         {
             foreach (Collider p in _objectsInside)
             {

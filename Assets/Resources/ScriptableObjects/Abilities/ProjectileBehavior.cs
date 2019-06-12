@@ -9,6 +9,9 @@ public class ProjectileBehavior : MonoBehaviour
     Effect.AbilityEffect effect;
     Vector3 startPosition;
     GameObject _owner;
+
+    float rotationSpeed = 20f;
+    bool dead = false;
     
     public void SetVars(int damage_, float range, Effect.AbilityEffect effect_, GameObject owner)
     {
@@ -22,11 +25,18 @@ public class ProjectileBehavior : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (dead)
+            return;
+
         if(Vector3.Distance(transform.position, startPosition) > maxRange)
         {
-            Destroy(gameObject);
+            Destroy(gameObject, 2);
+            GetComponent<Rigidbody>().velocity = Vector3.zero;
+            GetComponent<MeshRenderer>().enabled = false;
+            GetComponent<Collider>().enabled = false;
+            dead = true;
         }
-
+        transform.Rotate(transform.forward, rotationSpeed);
         transform.position = new Vector3(transform.position.x, startPosition.y, transform.position.z);
     }
 
@@ -51,6 +61,10 @@ public class ProjectileBehavior : MonoBehaviour
         }
 
         // destroy on collide with anything
-        Destroy(gameObject);
+        Destroy(gameObject, 2); // let particles die
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<Collider>().enabled = false;
+        dead = true;
     }
 }

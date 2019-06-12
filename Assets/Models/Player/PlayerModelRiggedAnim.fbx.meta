@@ -1144,8 +1144,8 @@ ModelImporter:
     - serializedVersion: 16
       name: Idle
       takeName: rig|rigAction.002
-      firstFrame: 49
-      lastFrame: 126
+      firstFrame: 48
+      lastFrame: 94
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

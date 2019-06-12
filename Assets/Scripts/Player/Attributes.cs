@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Attributes")]
 public class Attributes : ScriptableObject
 {
-    public enum StatTypes { Strength, Dexterity, Intellect, Stamina, Magic, NONE }
+    public enum StatTypes { Strength, Dexterity, Spirit, Stamina, Magic, NONE }
 
     [Serializable]
     public struct Stat
