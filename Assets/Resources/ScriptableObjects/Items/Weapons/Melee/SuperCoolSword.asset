@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemName: Super Cool Sword
   _flavorText: This sword is actually super cool
-  _rarity: 4
+  _rarity: 3
   _inventorySprite: {fileID: 21300000, guid: 1c77e5465998ef443b3d941edfd466a4, type: 3}
   _weaponType: 0
   _slotType: 0

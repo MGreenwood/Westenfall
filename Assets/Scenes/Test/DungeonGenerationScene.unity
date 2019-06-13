@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 392e32794118e1742986e2cdc464c8d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _debug: 0
+  _debug: 1
 --- !u!4 &441195216
 Transform:
   m_ObjectHideFlags: 0
@@ -986,6 +986,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gen: {fileID: 1045158023}
+  groundItem: {fileID: 2185269034860342563, guid: 9573da52260ffca4197f029ed63e0f84,
+    type: 3}
+  itemToSpawn: {fileID: 11400000, guid: a57c4f70e69bf5846849611d273cbb3c, type: 2}
+  itemToSpawn2: {fileID: 11400000, guid: f9537ab41eb3e134ebf110ce3cf71d08, type: 2}
 --- !u!4 &2059595710
 Transform:
   m_ObjectHideFlags: 0

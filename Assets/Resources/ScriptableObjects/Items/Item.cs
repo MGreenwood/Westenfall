@@ -29,13 +29,7 @@ public abstract class Item : UnityEngine.ScriptableObject
 
     protected ItemType _itemType;
     protected ItemSize _itemSize;
-
-
-    public void CreateNew()
-    {
-        
-    }
-
+    
     public virtual string GetItemName()
     {
         return _itemName;
@@ -55,4 +49,6 @@ public abstract class Item : UnityEngine.ScriptableObject
     {
         return _inventorySprite;
     }
+
+    public Rarity GetRarity() => _rarity;
 }

@@ -263,7 +263,7 @@ public class Inventory : MonoBehaviour
     public void UpdatePosition(InventoryItemObject itemObject, Index ndx)
     {
         itemObject.transform.localPosition = PositionAtIndex(ndx._x, ndx._y) - HalfTile();
-        OutputInventoryState(); // TODO Take this out
+        //OutputInventoryState(); // TODO Take this out
     }
 
     public void OutputInventoryState()
@@ -308,7 +308,7 @@ public class Inventory : MonoBehaviour
                     return false;
                 }
 
-                if(_inventory[c,r]._slotStatus != SlotStatus.Available)
+                if(_inventory[c,r]._slotStatus != SlotStatus.Available)// && _inventory[c,r]._item != item)
                 {
                     return false;
                 }

@@ -18,7 +18,9 @@ public class EnemyCanvasController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Vector3 lookPos = new Vector3(cam.position.x, cam.position.y / 2f, cam.position.z);
-        canvas.transform.LookAt(lookPos);
+        //Vector3 lookPos = new Vector3(cam.position.x, cam.position.y / 2f, cam.position.z);
+        //canvas.transform.LookAt(lookPos);
+
+        canvas.transform.LookAt(transform.position + cam.transform.rotation * Vector3.back, cam.transform.rotation * Vector3.up);
     }
 }
