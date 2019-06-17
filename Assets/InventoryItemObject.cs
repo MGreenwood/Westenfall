@@ -32,6 +32,8 @@ public class InventoryItemObject : MonoBehaviour,
     GameObject tooltip;
     Player player;
 
+    bool isEquipped = false;
+
     public void init(Item item, Inventory.Index index)
     {
         _item = item;
@@ -56,22 +58,6 @@ public class InventoryItemObject : MonoBehaviour,
             // green if space available in that inventory
             // red if not
 
-        }
-
-        if(_pointerInside && Input.GetMouseButtonDown(1)) // trying ot use item
-        {
-            //determine the type of item
-            if(_item is Weapon)
-            {
-                if(player.EquipWeapon(_item as Weapon, gameObject))
-                {
-                    
-                }
-            }
-            else if(_item is Armor)
-            {
-                player.EquipArmor(_item as Armor, gameObject);
-            }
         }
     }
 
@@ -125,22 +111,50 @@ public class InventoryItemObject : MonoBehaviour,
         tooltip.SetActive(false);
     }
 
+    public Image GetImage() => _image;
+
     void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
     {
+        
+
         if (_pointerInside)
         {
-            _dragging = true;
-            _originalPosition = transform.localPosition;
-            DraggedObject = this;
+            if (eventData.button == PointerEventData.InputButton.Right)
+            {
+                //determine the type of item
+                if (_item is Weapon)
+                {
+                    if(isEquipped)
+                    {
+                        // item is equipped, either do nothing or unequip
 
-            // reparent to show on top of other items
-            _image.transform.SetAsLastSibling();
-            _image.raycastTarget = false;
+                    }
+                    else if (player.EquipWeapon(this))
+                    {
+                        isEquipped = true;
+                    }
+                }
+                else if (_item is Armor)
+                {
+                    player.EquipArmor(_item as Armor, gameObject);
+                }
+            }
+            else
+            {
 
-            // make semi-transparent
-            Color c = _image.color;
-            c.a = 0.75f;
-            _image.color = c;
+                _dragging = true;
+                _originalPosition = transform.localPosition;
+                DraggedObject = this;
+
+                // reparent to show on top of other items
+                _image.transform.SetAsLastSibling();
+                _image.raycastTarget = false;
+
+                // make semi-transparent
+                Color c = _image.color;
+                c.a = 0.75f;
+                _image.color = c;
+            }
         }
 
         _pointerDown = true;
@@ -174,6 +188,14 @@ public class InventoryItemObject : MonoBehaviour,
                             inv.inventory.UpdatePosition(this, newIndex);
                             _index = newIndex;
                             foundHome = true;
+
+                            if(isEquipped)
+                            {
+                                //unequip the item!
+
+
+                                isEquipped = false;
+                            }
                         }
                         foundDroppableArea = true;
                     }

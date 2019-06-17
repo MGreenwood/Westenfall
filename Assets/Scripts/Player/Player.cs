@@ -22,7 +22,7 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
     [SerializeField]
     Attributes _attributes;
     Inventory _inventory;
-    Item[] _equipment;
+    Equipment _equipment;
 
     bool isInvulnerable = false;
 
@@ -58,6 +58,8 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
     private void Start()
     {
         _attributes = Instantiate(_attributes);
+        _equipment = GetComponent<Equipment>();
+
         SetupPlayer();
 
         _health = _maxHealth;
@@ -68,8 +70,18 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
 
     void SetupPlayer()
     {
+        // load equipment from file
+
+        // load inventories
+
+        // load spells
+
+        // load preferences (options menu selections) & keybinds
+
+
         _maxHealth = (int)((float)_attributes.GetStat(Attributes.StatTypes.Stamina).value * Attributes.StamToHP);
         _maxMana = (int)((float)_attributes.GetStat(Attributes.StatTypes.Magic).value * Attributes.MagicToMP);
+
     }
 
     public void SetClass(PlayerClass.ClassType classType)
@@ -84,10 +96,13 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
         return false;
     }
 
-    public bool EquipWeapon(Weapon weapon, GameObject inventoryItemObject)
+    public bool EquipWeapon(InventoryItemObject inventoryItemObject)
     {
+        // Player ensures the item can be equipped, sends to Equipment class that manages the actual equipping
+
+
         // ensure the stat requirements are met
-        foreach(Attributes.Stat stat in weapon.GetStatRequirements())
+        foreach(Attributes.Stat stat in (inventoryItemObject.GetItem() as Weapon).GetStatRequirements())
         {
             if(_attributes.GetStat(stat.statType).value < stat.value)
             {
@@ -100,7 +115,7 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
 
 
         // actually equip the item
-        
+        _equipment.Equip(inventoryItemObject, 2);
 
         return true;
     }
