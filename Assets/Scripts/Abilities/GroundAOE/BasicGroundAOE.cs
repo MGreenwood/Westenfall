@@ -67,8 +67,11 @@ public class BasicGroundAOE : MonoBehaviour
             {
                 if (p == null)
                     toDestroy.Add(p);
-
-                p.GetComponent<IDamageable>().Damage(_ability.GetEffect().value, _ability.GetEffect(), false, _ability.GetOwner());
+                try
+                {
+                    p.GetComponent<IDamageable>().Damage(_ability.GetEffect().value, _ability.GetEffect(), false, _ability.GetOwner());
+                }
+                catch { }
             }
 
             foreach(Collider p in toDestroy)

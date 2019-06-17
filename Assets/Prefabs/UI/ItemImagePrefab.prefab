@@ -87,3 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8afa37a479576e1419ebae75d124c013, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  groundItemPrefab: {fileID: 2185269034860342563, guid: 9573da52260ffca4197f029ed63e0f84,
+    type: 3}
+  tooltipPrefab: {fileID: 3842383694965394853, guid: 91ef69f65cb276c478305e62c96ffd5c,
+    type: 3}

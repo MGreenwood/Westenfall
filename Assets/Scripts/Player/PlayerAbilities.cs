@@ -11,7 +11,7 @@ public class PlayerAbilities : MonoBehaviour
 
     [SerializeField] private Ability[] abilities;
     [SerializeField] private bool[] available; // parallel array stating if off cooldown // true == available to cast
-    private int numAbilities = 5;
+
     private int lastIndex = -1; // the last ability that was cast
 
     // events

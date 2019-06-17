@@ -8,11 +8,15 @@ public class Attributes : ScriptableObject
 {
     public enum StatTypes { Strength, Dexterity, Spirit, Stamina, Magic, NONE }
 
+    public const float Bonus_Mod = 0.2f;
+    public const float StamToHP = 12.4f;
+    public const float MagicToMP = 14.8f;
+
     [Serializable]
     public struct Stat
     {
         public StatTypes statType;
-        public float value;
+        public int value;
     }
 
     [SerializeField]

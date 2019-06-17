@@ -19,6 +19,18 @@ public class InventoryItemObject : MonoBehaviour,
     public static InventoryItemObject DraggedObject = null;
     EventSystem _eventSystem;
     Image _image;
+    Transform lastParent;
+
+    float tooltipDelay = 0.5f;
+
+    [SerializeField]
+    GameObject groundItemPrefab;
+
+    [SerializeField]
+    GameObject tooltipPrefab;
+
+    GameObject tooltip;
+    Player player;
 
     public void init(Item item, Inventory.Index index)
     {
@@ -30,6 +42,8 @@ public class InventoryItemObject : MonoBehaviour,
     {
         _eventSystem = GetComponent<EventSystem>();
         _image = GetComponent<Image>();
+
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     private void Update()
@@ -43,6 +57,22 @@ public class InventoryItemObject : MonoBehaviour,
             // red if not
 
         }
+
+        if(_pointerInside && Input.GetMouseButtonDown(1)) // trying ot use item
+        {
+            //determine the type of item
+            if(_item is Weapon)
+            {
+                if(player.EquipWeapon(_item as Weapon, gameObject))
+                {
+                    
+                }
+            }
+            else if(_item is Armor)
+            {
+                player.EquipArmor(_item as Armor, gameObject);
+            }
+        }
     }
 
     public Item GetItem()
@@ -53,11 +83,46 @@ public class InventoryItemObject : MonoBehaviour,
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
         _pointerInside = true;
+
+        StartCoroutine(DisplayTooltip());
+
+        // else display previous tooltip
     }
 
     void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
     {
         _pointerInside = false;
+            
+    }
+
+    IEnumerator DisplayTooltip()
+    {
+        yield return new WaitForSeconds(tooltipDelay);
+
+        // if tooltip is null, generate a new one
+        if (tooltip == null)
+        {
+            tooltip = Instantiate(tooltipPrefab, transform.position + new Vector3(10, 0, 0), Quaternion.identity);
+            tooltip.transform.SetParent(transform.parent);
+            tooltip.transform.SetAsLastSibling();
+            tooltip.GetComponent<TooltipItem>().SetItem(_item);
+        }
+        else
+        {
+            // set the position
+            tooltip.transform.position = transform.position;
+            tooltip.transform.SetParent(transform.parent);
+            tooltip.transform.SetAsLastSibling();
+            tooltip.SetActive(true);
+        }
+
+        // check if tooltip.x + 1/2 tooltip size goes ovber current windows x, if yes, display on left side of item
+        while (_pointerInside && !_dragging)
+        {
+            yield return new WaitForFixedUpdate();
+        }
+
+        tooltip.SetActive(false);
     }
 
     void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
@@ -67,6 +132,10 @@ public class InventoryItemObject : MonoBehaviour,
             _dragging = true;
             _originalPosition = transform.localPosition;
             DraggedObject = this;
+
+            // reparent to show on top of other items
+            _image.transform.SetAsLastSibling();
+            _image.raycastTarget = false;
 
             // make semi-transparent
             Color c = _image.color;
@@ -79,9 +148,10 @@ public class InventoryItemObject : MonoBehaviour,
 
     void IPointerUpHandler.OnPointerUp(PointerEventData eventData)
     {
-        if(_dragging)
+        if (_dragging)
         {
             bool foundHome = false;
+            bool foundDroppableArea = false;
 
             // check if inside a droppable area
             foreach (InventoryCanvas.InventoryCanvasContainer inv in InventoryCanvas.Inventories)
@@ -105,24 +175,44 @@ public class InventoryItemObject : MonoBehaviour,
                             _index = newIndex;
                             foundHome = true;
                         }
+                        foundDroppableArea = true;
                     }
                 }
             }
 
+            // check the equipment areas, maybe trying to equip
+            //TODO TODO
+
+
             if (!foundHome)
             {
-                // else return to original position
-                transform.localPosition = _originalPosition;
+                
+
+                if (!UIManager.instance._isOverUI) // not over UI, drop item on ground
+                {
+                    Vector3 dropPos = player.transform.position;
+                    GameObject groundItem = Instantiate(groundItemPrefab, dropPos, Quaternion.identity);
+                    groundItem.GetComponent<GroundItem>().SetItem(_item);
+                    transform.parent.GetComponent<Inventory>().RemoveFromSlot(_item, _index);
+                    Destroy(gameObject);
+                }
+                else // still within UI, return to original position
+                {
+                    // else return to original position
+                    transform.localPosition = _originalPosition;
+                }
             }
 
             // return opaqueness
             Color c = _image.color;
             c.a = 1f;
             _image.color = c;
-        }
 
-        _dragging = false;
-        DraggedObject = null;
-        _pointerDown = false;
+            _dragging = false;
+            DraggedObject = null;
+            _pointerDown = false;
+
+            _image.raycastTarget = true;
+        }
     }
 }

@@ -38,6 +38,12 @@ public class Armor : Item
     [SerializeField]
     List<Stat> _stats;
 
+    [SerializeField]
+    bool isMagicItem;
+
+    [SerializeField]
+    Attributes.Stat[] _statRequirements;
+
     /*public void CreateNew(Slot slot, Item.Rarity rarity, params Stat[] stats)
     {
         _itemType = ItemType.Armor;

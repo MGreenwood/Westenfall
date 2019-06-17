@@ -22,5 +22,6 @@ MonoBehaviour:
   tooltipDescription: Jump through the shadows
   tooltipFlavorText: 
   _abilityType: 0
+  _abilitySlot: 1
   _movementAbility: {fileID: 6625986414577996655, guid: 4657a8789e07de3439943f0b7b483948,
     type: 3}

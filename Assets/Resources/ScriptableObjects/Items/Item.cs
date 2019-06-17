@@ -27,9 +27,14 @@ public abstract class Item : UnityEngine.ScriptableObject
     [SerializeField]
     protected Sprite _inventorySprite;
 
+    [SerializeField]
+    GameObject prefab;
+
     protected ItemType _itemType;
     protected ItemSize _itemSize;
     
+
+
     public virtual string GetItemName()
     {
         return _itemName;

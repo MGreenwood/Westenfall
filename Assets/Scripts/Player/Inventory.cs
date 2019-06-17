@@ -83,7 +83,7 @@ public class Inventory : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.J))
         {
-            AddItem(Resources.Load<Item>("ScriptableObjects/Items/Weapons/Melee/SuperCoolSword") as Weapon);
+            AddItem(Resources.Load<Item>("ScriptableObjects/Items/Weapons/Melee/Swords/ShortSword") as Weapon);
         }
         if (Input.GetKeyDown(KeyCode.K))
         {
@@ -206,7 +206,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    void RemoveFromSlot(Item item, Index index)
+    public void RemoveFromSlot(Item item, Index index)
     {
         Item.ItemSize itemSize = item.GetItemSize();
 

@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class Ability : ScriptableObject
 {
     public enum AbilityType { Magic, Physical }
+    public enum AbilitySlot { Main, Movement, Defensive, MultiAction } 
 
     public string abilityName;
     public float cooldown;
@@ -19,6 +20,7 @@ public abstract class Ability : ScriptableObject
     [SerializeField] protected string tooltipDescription;
     [SerializeField] protected string tooltipFlavorText;
     [SerializeField] protected AbilityType _abilityType;
+    [SerializeField] protected AbilitySlot _abilitySlot;
 
     public Ability() { }
 

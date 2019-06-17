@@ -58,8 +58,18 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
     private void Start()
     {
         _attributes = Instantiate(_attributes);
+        SetupPlayer();
+
         _health = _maxHealth;
         _mana = _maxMana;
+
+        StartCoroutine(ResourceRegen());
+    }
+
+    void SetupPlayer()
+    {
+        _maxHealth = (int)((float)_attributes.GetStat(Attributes.StatTypes.Stamina).value * Attributes.StamToHP);
+        _maxMana = (int)((float)_attributes.GetStat(Attributes.StatTypes.Magic).value * Attributes.MagicToMP);
     }
 
     public void SetClass(PlayerClass.ClassType classType)
@@ -67,14 +77,32 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
         _classType = classType;
     }
 
-    public void EquipArmor(Armor armor) // right click equip
+    public bool EquipArmor(Armor armor, GameObject inventoryItemObject) // right click equip
     {
 
+
+        return false;
     }
 
-    public void EquipArmor(Armor armor, int slot) // equip for specific slot
+    public bool EquipWeapon(Weapon weapon, GameObject inventoryItemObject)
     {
+        // ensure the stat requirements are met
+        foreach(Attributes.Stat stat in weapon.GetStatRequirements())
+        {
+            if(_attributes.GetStat(stat.statType).value < stat.value)
+            {
+                Debug.Log("Stat requirements not met -- " + stat.statType);
+                return false;
+            }
+        }
+
+        // if slot is currently taken, return the inventory object that is currently equipped
+
+
+        // actually equip the item
         
+
+        return true;
     }
 
     public bool PickupItem(Item item)
@@ -134,5 +162,42 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
     public void SubscribeToManaChanged(ManaChanged mc)
     {
         D_ManaChanged += mc;
+    }
+
+    IEnumerator ResourceRegen()
+    {
+        while (Application.isPlaying)
+        {
+            if (_health < _maxHealth)
+            {
+                AddHealth((int)((float)_attributes.GetStat(Attributes.StatTypes.Dexterity).value * Attributes.Bonus_Mod));
+            }
+
+            if (_mana < _maxMana)
+            {
+                AddMana((int)((float)_attributes.GetStat(Attributes.StatTypes.Spirit).value * Attributes.Bonus_Mod));
+            }
+
+            yield return new WaitForSeconds(1);
+        }
+    }
+
+    public void AddHealth(int val)
+    {
+        _health += val;
+        _health = Mathf.Clamp(_health, 0, _maxHealth);
+        D_HealthChanged?.Invoke();
+    }
+
+    public void AddMana(int val)
+    {
+        _mana += val;
+        _mana = Mathf.Clamp(_mana, 0, _maxMana);
+        D_ManaChanged?.Invoke();
+    }
+
+    public void ApplyEffect(Effect.AbilityEffect effect)
+    {
+        throw new NotImplementedException();
     }
 }

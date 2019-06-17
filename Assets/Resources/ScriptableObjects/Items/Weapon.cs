@@ -27,17 +27,27 @@ public class Weapon : Item
                                     new Item.ItemSize(3,4),  // Shield
     };
 
-    public enum WeaponType { Sword, Staff, Dagger }
+    public enum WeaponType { Sword, Staff, Bow }
     public enum SlotType { MainHand, OffHand }
     
     [SerializeField]
     List<Stat> _stats;
+
     [Space(15)]
     [SerializeField]
     private WeaponType _weaponType;
 
     [SerializeField]
+    Attributes.Stat[] _statRequirements;
+
+    [SerializeField]
+    int levelRequirement;
+
+    [SerializeField]
     SlotType _slotType;
+
+    [SerializeField]
+    bool isMagicItem;
 
     /*public void CreateNew(WeaponType weaponType, params Stat[] stats)
     {
@@ -66,10 +76,12 @@ public class Weapon : Item
         }
     }
 
-    
+    public WeaponType GetWeaponType() => _weaponType;
 
     public List<Stat> GetStats()
     {
         return _stats;
     }
+
+    public Attributes.Stat[] GetStatRequirements() => _statRequirements;
 }

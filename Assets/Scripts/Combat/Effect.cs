@@ -8,13 +8,13 @@ public class Effect{
     public struct AbilityEffect
     {
         public EffectType effectType;
-        public float duration;
+        public int numTicks;
         public int value;
 
-        public AbilityEffect(EffectType eType, float dur, int val)
+        public AbilityEffect(EffectType eType, int numTick, int val)
         {
             effectType = eType;
-            duration = dur;
+            numTicks = numTick;
             value = val;
         }
     }

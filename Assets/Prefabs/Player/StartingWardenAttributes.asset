@@ -10,16 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 18c857325782f0546b89676db5d9ec35, type: 3}
-  m_Name: StartingAttributes
+  m_Name: StartingWardenAttributes
   m_EditorClassIdentifier: 
   _stats:
   - statType: 0
     value: 15
   - statType: 1
-    value: 20
-  - statType: 2
-    value: 20
-  - statType: 3
-    value: 10
-  - statType: 4
     value: 15
+  - statType: 2
+    value: 10
+  - statType: 3
+    value: 20
+  - statType: 4
+    value: 10
