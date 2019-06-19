@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2352666261863843513}
   - component: {fileID: 735694454712034214}
   - component: {fileID: 4447649540025321220}
+  - component: {fileID: 5186133797120393540}
   m_Layer: 5
   m_Name: ItemImagePrefab
   m_TagString: Untagged
@@ -91,3 +92,15 @@ MonoBehaviour:
     type: 3}
   tooltipPrefab: {fileID: 3842383694965394853, guid: 91ef69f65cb276c478305e62c96ffd5c,
     type: 3}
+--- !u!114 &5186133797120393540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5872839192529934557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7454f2e638d649245a92728d673a067a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

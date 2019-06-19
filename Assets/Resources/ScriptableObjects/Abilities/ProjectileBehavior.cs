@@ -55,8 +55,11 @@ public class ProjectileBehavior : MonoBehaviour
                     case Ability.AbilityType.Magic:
                         bonusDamage = (int)((float)_owner.GetComponent<Player>().GetAttributes().GetStat(Attributes.StatTypes.Magic).value * Attributes.Bonus_Mod);
                         break;
-                    case Ability.AbilityType.Physical:
+                    case Ability.AbilityType.Melee:
                         bonusDamage = (int)((float)_owner.GetComponent<Player>().GetAttributes().GetStat(Attributes.StatTypes.Strength).value * Attributes.Bonus_Mod);
+                        break;
+                    case Ability.AbilityType.Ranged:
+                        bonusDamage = (int)((float)_owner.GetComponent<Player>().GetAttributes().GetStat(Attributes.StatTypes.Dexterity).value * Attributes.Bonus_Mod);
                         break;
                 }
 

@@ -4,19 +4,19 @@ using UnityEngine;
 
 public abstract class Ability : ScriptableObject
 {
-    public enum AbilityType { Magic, Physical }
+    public enum AbilityType { Magic, Melee, Ranged }
     public enum AbilitySlot { Main, Movement, Defensive, MultiAction } 
 
     public string abilityName;
     public float cooldown;
     protected GameObject owner;
 
+    [SerializeField] protected PlayerClass.ClassType _classRequirement;
     [SerializeField] protected float range;
     [SerializeField] protected int cost;
     [SerializeField] protected float castTime;
     [SerializeField] protected int damage;
 
-    [SerializeField] protected PlayerClass.ClassType Class;
     [SerializeField] protected string tooltipDescription;
     [SerializeField] protected string tooltipFlavorText;
     [SerializeField] protected AbilityType _abilityType;
@@ -27,6 +27,7 @@ public abstract class Ability : ScriptableObject
     public float CastTime { get { return castTime;}}
 
     public virtual bool Cast() { return false; }
+
     public virtual void SetOwner(GameObject owner_)
     {
         owner = owner_;

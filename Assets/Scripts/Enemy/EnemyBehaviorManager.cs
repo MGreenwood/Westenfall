@@ -7,10 +7,10 @@ using System.Linq;
 
 public class EnemyBehaviorManager : MonoBehaviour
 {
-    struct Aggro
+    class Aggro
     {
         // damage and abilities increase agrro value
-        public Player player;
+        public readonly Player player;
         public float aggro;
         public bool hasSeenInLOS;
 
@@ -21,14 +21,21 @@ public class EnemyBehaviorManager : MonoBehaviour
             hasSeenInLOS = false;
         }
 
+        public Aggro()
+        {
+            player = null;
+            aggro = 0;
+            hasSeenInLOS = false;
+        }
+
         public void SetAsSeen()
         {
-            hasSeenInLOS = true;
+            this.hasSeenInLOS = true;
         }
 
         public void AddAggro(float toAdd)
         {
-            aggro += toAdd;
+            this.aggro += toAdd;
         }
     }
     EnemyAbilities enemyAbilities;
@@ -38,8 +45,8 @@ public class EnemyBehaviorManager : MonoBehaviour
     List<Aggro> _playersInside;
     NavMeshAgent agent;
 
-    float _aggroFalloff = 0.1f;
-    float _aggroPerDamage = 1f;
+    readonly float _aggroFalloff = 0.1f;
+    readonly float _aggroPerDamage = 1f;
 
     [SerializeField]
     EnemyTriggerEnter AggroTrigger;
@@ -53,7 +60,7 @@ public class EnemyBehaviorManager : MonoBehaviour
     float _rotationSpeed = 0.2f;
 
     Aggro currentTarget = new Aggro(null);
-    bool _navActive = false;
+
 
     bool enemyActive = true;
 
@@ -118,7 +125,6 @@ public class EnemyBehaviorManager : MonoBehaviour
                 if (indexToUse != -1f && enemyAbilities.ActivateAbility(indexToUse))
                 {
                     usedAbility = true;
-                    _navActive = false;
                     agent.destination = transform.position;
                 }
 
@@ -167,7 +173,6 @@ public class EnemyBehaviorManager : MonoBehaviour
     {
         CalculateHighestAggro();
 
-        _navActive = true;
         agent.SetDestination(currentTarget.player.transform.position);
     }
 
@@ -198,7 +203,7 @@ public class EnemyBehaviorManager : MonoBehaviour
         // start following player if not already in 
         foreach (Aggro p in _playersInside)
         {
-            if(player == p.player)
+            if(player.GetInstanceID() == p.player.GetInstanceID())
             {
                 // player already being tracked
                 return;
@@ -213,6 +218,8 @@ public class EnemyBehaviorManager : MonoBehaviour
         {
             if (_playersInside.Count == 1) // this is the first player
                 currentTarget = _playersInside[0]; // make them the current target
+
+            _playersInside[_playersInside.Count - 1].SetAsSeen();
         }
     }
 
@@ -224,7 +231,7 @@ public class EnemyBehaviorManager : MonoBehaviour
         Player player = playerObject.GetComponent<Player>();
         Aggro playerAggro = _playersInside.Find(x => x.player == player);
 
-        if(playerAggro.player != new Aggro().player) // player is already in list
+        if(playerAggro != null) // player is already in list
         {
             // just add the aggro
             playerAggro.AddAggro(damage * _aggroPerDamage);

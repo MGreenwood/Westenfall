@@ -54,7 +54,7 @@ public class Enemy : MonoBehaviour, IDamageable, IKillable, IHasAttributes
         _behaviorManager.Damaged(abilityOwner, dmg);
 
         if(effect.effectType != Effect.EffectType.Basic)
-            ApplyEffect(effect);
+            ApplyEffect(effect, abilityOwner);
         
     }
 
@@ -73,7 +73,7 @@ public class Enemy : MonoBehaviour, IDamageable, IKillable, IHasAttributes
         _behaviorManager.Damaged(abilityOwner, damage);
     }
 
-    public void ApplyEffect(Effect.AbilityEffect effect)
+    public void ApplyEffect(Effect.AbilityEffect effect, GameObject abilityOwner)
     {
         switch(effect.effectType)
         {
@@ -81,7 +81,7 @@ public class Enemy : MonoBehaviour, IDamageable, IKillable, IHasAttributes
             case Effect.EffectType.Burn:
             case Effect.EffectType.Poison:
             {
-                StartCoroutine(ApplyDamageEffect(effect));
+                StartCoroutine(ApplyDamageEffect(effect, abilityOwner));
             }
                 break;
             case Effect.EffectType.Root:
@@ -89,12 +89,12 @@ public class Enemy : MonoBehaviour, IDamageable, IKillable, IHasAttributes
         }
     }
 
-    IEnumerator ApplyDamageEffect(Effect.AbilityEffect effect)
+    IEnumerator ApplyDamageEffect(Effect.AbilityEffect effect, GameObject abilityOwner)
     {
         int ticksRemaining = effect.numTicks;
         while(ticksRemaining > 0)
         {
-            SubsequentDamage(effect, gameObject);
+            SubsequentDamage(effect, abilityOwner);
             ticksRemaining--;
             yield return new WaitForSeconds(1);
         }

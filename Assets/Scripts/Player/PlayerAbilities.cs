@@ -34,7 +34,10 @@ public class PlayerAbilities : MonoBehaviour
         //abilities = new Ability[numAbilities];
         //available = new bool[numAbilities];
         SetupPlayer();
-
+        abilities[0] = Instantiate(abilities[0]);
+        abilities[1] = Instantiate(abilities[1]);
+        abilities[2] = Instantiate(abilities[2]);
+        abilities[3] = Instantiate(abilities[3]);
         abilities[0].SetOwner(gameObject);
         abilities[1].SetOwner(gameObject);
         abilities[2].SetOwner(gameObject);

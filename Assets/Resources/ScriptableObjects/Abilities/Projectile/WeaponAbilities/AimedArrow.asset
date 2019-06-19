@@ -14,14 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   abilityName: Aimed Arrow
   cooldown: 0
+  _classRequirement: 6
   range: 40
   cost: 0
   castTime: 0.4
   damage: 4
-  Class: 3
   tooltipDescription: 
   tooltipFlavorText: 
-  _abilityType: 1
+  _abilityType: 2
   _abilitySlot: 0
   prefab: {fileID: 7306148206405213302, guid: 07829b14c5bca714aa71d13e773c6c25, type: 3}
   effect:

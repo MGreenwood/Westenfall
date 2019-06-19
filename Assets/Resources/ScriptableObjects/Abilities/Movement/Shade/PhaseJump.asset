@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: PhaseJump
   m_EditorClassIdentifier: 
   abilityName: Phase Jump
-  cooldown: 3
+  cooldown: 0
+  _classRequirement: 3
   range: 0
-  cost: 8
+  cost: 0
   castTime: 0
   damage: 0
-  Class: 3
   tooltipDescription: Jump through the shadows
   tooltipFlavorText: 
   _abilityType: 0

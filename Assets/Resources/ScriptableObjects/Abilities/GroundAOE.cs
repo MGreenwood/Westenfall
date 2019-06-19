@@ -18,8 +18,22 @@ public class GroundAOE : Ability
 
     public override bool Cast()
     {
+        Vector3 spawnLocation;
+        RaycastHit hit;
+
+        // raycast down to ground for placement                                             // ignore all layers but ground
+        if(Physics.Raycast(owner.transform.position, Vector3.down, out hit, Mathf.Infinity, ~LayerMask.NameToLayer("Ground")))
+        {
+            spawnLocation = hit.point;// + new Vector3(0,0.1f,0);
+        }
+        else
+        {
+            // cant find ground?
+            spawnLocation = owner.transform.position;
+        }
+
         // place under current location
-        BasicGroundAOE aoe = Instantiate(_prefab, owner.transform.position, Quaternion.identity).GetComponent<BasicGroundAOE>();
+        BasicGroundAOE aoe = Instantiate(_prefab, spawnLocation, Quaternion.identity).GetComponent<BasicGroundAOE>();
         aoe.init(_groundSprite, this);
 
         return true;

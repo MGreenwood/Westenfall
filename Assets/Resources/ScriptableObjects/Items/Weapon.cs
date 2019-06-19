@@ -5,22 +5,26 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Items/Weapon")]
 public class Weapon : Item
 {
-    public enum Stats { Strength, Intellect, // Base Stats
+    public enum Stats { Strength, Dexterity, Magic, // Base Stats
                         PhysicalDamage, MagicDamage, CritRate, CritDamage, MinDamage, MaxDamage, // Damage Mods
                         CooldownReduction, HpOnHit // Misc
     } 
-    public struct Stat
-    {
-        public readonly Stats _stat;
-        public readonly float _value;
-        public readonly bool _flatValue;
 
-        public Stat(Stats stat, float value, bool flatValue)
+    [System.Serializable]
+    public class Stat
+    {
+        public Stats _stat;
+        public float _value;
+        public bool _flatValue;
+        public bool _isBasicStat;
+
+        public Stat(Stats stat, float value, bool flatValue, bool isBasicStat)
         {
             _stat = stat;
             _value = value;
             _flatValue = flatValue;
         }
+
     }
 
     Item.ItemSize[] WeaponSizes = { new Item.ItemSize(2, 5), // Main Hand
@@ -48,6 +52,9 @@ public class Weapon : Item
 
     [SerializeField]
     bool isMagicItem;
+
+    [SerializeField]
+    int maxStats;
 
     /*public void CreateNew(WeaponType weaponType, params Stat[] stats)
     {

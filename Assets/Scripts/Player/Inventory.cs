@@ -83,11 +83,11 @@ public class Inventory : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.J))
         {
-            AddItem(Resources.Load<Item>("ScriptableObjects/Items/Weapons/Melee/Swords/ShortSword") as Weapon);
+            AddItem(Instantiate(Resources.Load<Item>("ScriptableObjects/Items/Weapons/Melee/Swords/ShortSword") as Weapon));
         }
         if (Input.GetKeyDown(KeyCode.K))
         {
-            AddItem(Resources.Load<Armor>("ScriptableObjects/Items/Armor/Head/SoftCap") as Armor);
+            AddItem(Instantiate(Resources.Load<Armor>("ScriptableObjects/Items/Armor/Head/SoftCap") as Armor));
         }
 
         // Display inventory index over mouse
@@ -242,6 +242,18 @@ public class Inventory : MonoBehaviour
         img.sprite = item.GetSprite();
     }
 
+    public void SetParentAndSize(InventoryItemObject item)
+    {
+        item.GetImage().transform.SetParent(transform);
+
+        // set size of image
+        int wid = item.GetItem().GetItemSize()._width;
+        int hig = item.GetItem().GetItemSize()._height;
+        item.GetImage().rectTransform.localScale = Vector3.one;
+        item.GetImage().rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, localSizeOfTile * wid);
+        item.GetImage().rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, localSizeOfTile * hig);
+    }
+
     // size of tile +x -y
     public Vector3 HalfTile() => new Vector3(localSizeOfTile * 0.5f, -localSizeOfTile * 0.5f);
 
@@ -298,17 +310,17 @@ public class Inventory : MonoBehaviour
 
     bool TryFit(Item item, Index index)
     {
-        for (int r = index._y; r < index._y + item.GetItemSize()._height - 1; r++)
+        for (int r = index._y; r < index._y + item.GetItemSize()._height ; r++)
         {
-            for (int c = index._x; c < index._x + item.GetItemSize()._width - 1; c++)
+            for (int c = index._x; c < index._x + item.GetItemSize()._width ; c++)
             {
             
-                if(c >= _inventory.GetLength(0) -1 || r >= _inventory.GetLength(1) -1) // outside of inventory bounds
+                if(c >= _inventory.GetLength(0) || r >= _inventory.GetLength(1) ) // outside of inventory bounds
                 {
                     return false;
                 }
 
-                if(_inventory[c,r]._slotStatus != SlotStatus.Available)// && _inventory[c,r]._item != item)
+                if(_inventory[c,r]._slotStatus != SlotStatus.Available && _inventory[c,r]._item.GetInstanceID() != item.GetInstanceID())
                 {
                     return false;
                 }

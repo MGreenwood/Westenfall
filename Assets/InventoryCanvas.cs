@@ -32,6 +32,7 @@ public class InventoryCanvas : MonoBehaviour
 
         _raycaster = GetComponent<GraphicRaycaster>();
         Inventories.Add(new InventoryCanvasContainer(this, _inventory));
+        UIManager.instance._equipmentCanvas = GetComponent<Canvas>();
     }
 
     private void OnDisable()

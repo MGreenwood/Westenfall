@@ -13,15 +13,17 @@ public class Armor : Item
 
     public enum Stats
     {
-        Dexterity, Stamina, // Base Stats           
+        Stamina, Spirit, // Base Stats           
         HealthRegen, ManaRegen, Defense, MagicDefence, Health, Mana, // defensive / regen
         MoveSpeed // misc
     } 
 
-    public struct Stat
+    [System.Serializable]
+    public class Stat
     {
         public Stats _stat;
         public float _value;
+        public bool isBasicStat;
 
         public Stat(Stats stat, float value)
         {
@@ -36,10 +38,16 @@ public class Armor : Item
     private Slot _slot;
 
     [SerializeField]
+    int _armorValue;
+
+    [SerializeField]
     List<Stat> _stats;
 
     [SerializeField]
     bool isMagicItem;
+
+    [SerializeField]
+    int maxStats;
 
     [SerializeField]
     Attributes.Stat[] _statRequirements;
@@ -85,4 +93,7 @@ public class Armor : Item
             
         }
     }
+
+    public Attributes.Stat[] GetStatRequirements() => _statRequirements;
+    public List<Stat> GetStats() => _stats;
 }

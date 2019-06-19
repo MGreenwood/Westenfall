@@ -35,13 +35,31 @@ public class InventoryEquipmentSlot : MonoBehaviour, IEquippableArea
         itemImage.transform.position = image.transform.position;
     }
 
-    public Attributes GetItemAttribute(Attributes.StatTypes statType, Item.ItemType itemType)
+    public void SetItemNull()
+    {
+        _item = null;
+    }
+
+    public int GetItemAttribute(Attributes.StatTypes statType, Item.ItemType itemType)
     {
         if(_item != null)
         {
             
         }
 
-        return new Attributes();
+        return -1;
+    }
+
+    public Item GetItem() => _item;
+
+
+    public Weapon.Stat[] GetWeaponStats()
+    {
+        return ((Weapon)_item).GetStats().ToArray();
+    }
+
+    public Armor.Stat[] GetArmorStats()
+    {
+        return ((Armor)_item).GetStats().ToArray();
     }
 }

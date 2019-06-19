@@ -4,6 +4,7 @@ public abstract class Item : UnityEngine.ScriptableObject
 {
     public enum ItemType  { Armor, Weapon, Potion }
     public enum Rarity { White, Green, Blue, Purple, Orange, Yellow, Red }
+    public enum EquipmentSlot { Head, Hands, Weapon, Chest, Shield, Feet}
 
     public struct ItemSize
     {
@@ -26,6 +27,8 @@ public abstract class Item : UnityEngine.ScriptableObject
     protected Rarity _rarity;
     [SerializeField]
     protected Sprite _inventorySprite;
+    [SerializeField]
+    EquipmentSlot _equipmentSlot;
 
     [SerializeField]
     GameObject prefab;
@@ -56,4 +59,5 @@ public abstract class Item : UnityEngine.ScriptableObject
     }
 
     public Rarity GetRarity() => _rarity;
+    public EquipmentSlot GetEquipmentSlot() => _equipmentSlot;
 }

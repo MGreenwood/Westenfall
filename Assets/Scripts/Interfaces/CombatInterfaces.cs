@@ -5,7 +5,7 @@ public delegate void DamageTaken(float dmg, Effect.AbilityEffect effect, bool cr
 public interface IDamageable
 {
     void Damage(int damage, Effect.AbilityEffect effectType, bool crit, GameObject abilityOwner);
-    void ApplyEffect(Effect.AbilityEffect effect);
+    void ApplyEffect(Effect.AbilityEffect effect, GameObject abilityOwner);
     event DamageTaken damageTaken;
 }
 

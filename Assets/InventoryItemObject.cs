@@ -115,8 +115,6 @@ public class InventoryItemObject : MonoBehaviour,
 
     void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
     {
-        
-
         if (_pointerInside)
         {
             if (eventData.button == PointerEventData.InputButton.Right)
@@ -124,7 +122,7 @@ public class InventoryItemObject : MonoBehaviour,
                 //determine the type of item
                 if (_item is Weapon)
                 {
-                    if(isEquipped)
+                    if (isEquipped)
                     {
                         // item is equipped, either do nothing or unequip
 
@@ -132,11 +130,22 @@ public class InventoryItemObject : MonoBehaviour,
                     else if (player.EquipWeapon(this))
                     {
                         isEquipped = true;
+                        player.GetInventory().RemoveFromSlot(_item, _index);
                     }
                 }
                 else if (_item is Armor)
                 {
-                    player.EquipArmor(_item as Armor, gameObject);
+                    if (isEquipped)
+                    {
+                        // item is equipped, either do nothing or unequip
+
+                    }
+                    else if (player.EquipArmor(this))
+                    {
+
+                        isEquipped = true;
+                        player.GetInventory().RemoveFromSlot(_item, _index);
+                    }
                 }
             }
             else
@@ -147,7 +156,9 @@ public class InventoryItemObject : MonoBehaviour,
                 DraggedObject = this;
 
                 // reparent to show on top of other items
-                _image.transform.SetAsLastSibling();
+                //_image.transform.SetAsLastSibling();
+                lastParent = _image.transform.parent;
+                _image.transform.SetParent(TooltipCanvas.instance.transform);
                 _image.raycastTarget = false;
 
                 // make semi-transparent
@@ -184,18 +195,22 @@ public class InventoryItemObject : MonoBehaviour,
                         Inventory.Index newIndex;
                         if (inv.inventory.TryMove(_item, _index, pointerEventData.position, out newIndex))
                         {
+                            if (isEquipped)
+                            {
+                                //unequip the item!
+                                inv.inventory.SetParentAndSize(this);
+                                player.GetComponent<Equipment>().Unequip(_item.GetEquipmentSlot());
+                                isEquipped = false;
+                            }
+                            else
+                            {
+                                _image.transform.SetParent(lastParent);
+                            }
+
                             // move the item
                             inv.inventory.UpdatePosition(this, newIndex);
                             _index = newIndex;
                             foundHome = true;
-
-                            if(isEquipped)
-                            {
-                                //unequip the item!
-
-
-                                isEquipped = false;
-                            }
                         }
                         foundDroppableArea = true;
                     }
@@ -208,19 +223,22 @@ public class InventoryItemObject : MonoBehaviour,
 
             if (!foundHome)
             {
-                
-
                 if (!UIManager.instance._isOverUI) // not over UI, drop item on ground
                 {
                     Vector3 dropPos = player.transform.position;
                     GameObject groundItem = Instantiate(groundItemPrefab, dropPos, Quaternion.identity);
                     groundItem.GetComponent<GroundItem>().SetItem(_item);
-                    transform.parent.GetComponent<Inventory>().RemoveFromSlot(_item, _index);
+
+                    if(!isEquipped) // if equipped, dont need to remove from slot because its not in an inventory
+                        lastParent.GetComponent<Inventory>().RemoveFromSlot(_item, _index);
+                    //TODO
+                    //transform.parent.GetComponent<Inventory>().RemoveFromSlot(_item, _index);
                     Destroy(gameObject);
                 }
                 else // still within UI, return to original position
                 {
                     // else return to original position
+                    _image.transform.SetParent(lastParent);
                     transform.localPosition = _originalPosition;
                 }
             }

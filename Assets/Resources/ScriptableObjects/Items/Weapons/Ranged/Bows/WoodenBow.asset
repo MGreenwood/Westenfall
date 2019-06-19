@@ -10,30 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6ad6f9d24e8d58847b27b96da3a5bb16, type: 3}
-  m_Name: ShortSword
+  m_Name: WoodenBow
   m_EditorClassIdentifier: 
-  _itemName: Short Sword
+  _itemName: Wooden Bow
   _flavorText: 
   _rarity: 0
-  _inventorySprite: {fileID: 21300000, guid: a684581cf2f7f844686d2944deda96df, type: 3}
+  _inventorySprite: {fileID: 21300000, guid: 195bc5161658f9e41b8e7764382f9e7c, type: 3}
   _equipmentSlot: 2
-  prefab: {fileID: 1844119241748836620, guid: e86c610f6e4d2d94e9d8cd55a127d9c9, type: 3}
+  prefab: {fileID: 3742627151797607808, guid: 6770e20b5fa04104e85e463f63032056, type: 3}
   _stats:
-  - _stat: 0
-    _value: 12
-    _flatValue: 1
+  - _stat: 1
+    _value: 25
+    _flatValue: 0
     _isBasicStat: 1
-  - _stat: 3
-    _value: 6
-    _flatValue: 1
-    _isBasicStat: 0
-  _weaponType: 0
+  _weaponType: 2
   _statRequirements:
-  - statType: 0
-    value: 15
   - statType: 1
-    value: 15
-  levelRequirement: 0
+    value: 20
+  levelRequirement: 1
   _slotType: 0
   isMagicItem: 0
   maxStats: 0
