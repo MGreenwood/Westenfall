@@ -57,4 +57,12 @@ public class PlayerPickupRadius : MonoBehaviour
             _itemsInside.Add(other);
         }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == _itemMask && _itemsInside.Contains(other))
+        {
+            _itemsInside.Remove(other);
+        }
+    }
 }

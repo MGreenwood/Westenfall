@@ -16,13 +16,17 @@ MonoBehaviour:
   _flavorText: As basic as it gets
   _rarity: 0
   _inventorySprite: {fileID: 0}
+  _equipmentSlot: 0
   prefab: {fileID: 3813059753706295944, guid: 83bcc9c2cd686a644b67533a606ec94d, type: 3}
+  _itemType: 0
+  _levelRequirement: 1
+  _stats: []
   _weaponType: 1
   _statRequirements:
   - statType: 4
     value: 20
   - statType: 1
     value: 10
-  levelRequirement: 1
   _slotType: 0
   isMagicItem: 0
+  maxStats: 0

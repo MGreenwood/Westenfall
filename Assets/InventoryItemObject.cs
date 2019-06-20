@@ -89,15 +89,15 @@ public class InventoryItemObject : MonoBehaviour,
         if (tooltip == null)
         {
             tooltip = Instantiate(tooltipPrefab, transform.position + new Vector3(10, 0, 0), Quaternion.identity);
-            tooltip.transform.SetParent(transform.parent);
-            tooltip.transform.SetAsLastSibling();
+            tooltip.transform.SetParent(TooltipCanvas.instance.transform);
+            //tooltip.transform.SetAsLastSibling();
             tooltip.GetComponent<TooltipItem>().SetItem(_item);
         }
         else
         {
             // set the position
             tooltip.transform.position = transform.position;
-            tooltip.transform.SetParent(transform.parent);
+            tooltip.transform.SetParent(TooltipCanvas.instance.transform);
             tooltip.transform.SetAsLastSibling();
             tooltip.SetActive(true);
         }
@@ -199,7 +199,7 @@ public class InventoryItemObject : MonoBehaviour,
                             {
                                 //unequip the item!
                                 inv.inventory.SetParentAndSize(this);
-                                player.GetComponent<Equipment>().Unequip(_item.GetEquipmentSlot());
+                                player.Unequip(_item.GetEquipmentSlot());
                                 isEquipped = false;
                             }
                             else

@@ -40,15 +40,6 @@ public class InventoryEquipmentSlot : MonoBehaviour, IEquippableArea
         _item = null;
     }
 
-    public int GetItemAttribute(Attributes.StatTypes statType, Item.ItemType itemType)
-    {
-        if(_item != null)
-        {
-            
-        }
-
-        return -1;
-    }
 
     public Item GetItem() => _item;
 

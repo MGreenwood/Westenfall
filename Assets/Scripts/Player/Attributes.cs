@@ -23,6 +23,19 @@ public class Attributes : ScriptableObject
             statType = sType;
             value = val;
         }
+
+        public static Stat operator +(Stat s1, Stat s2)
+        {
+            return new Stat(s1.statType, s1.value + s2.value);
+        }
+        public static Stat operator -(Stat s1, Stat s2)
+        {
+            if(s1.value - s2.value < 0)
+                return new Stat(s1.statType, 0);
+
+            return new Stat(s1.statType, s1.value - s2.value);
+        }
+
     }
     
 
@@ -45,15 +58,13 @@ public class Attributes : ScriptableObject
         {
             if(s.statType == statType)
             {
-                if (_statsDirty)
-                    CalculateStats();
-
                 return s;
             }
         }
 
         return null;
     }
+
 
     public Stat[] GetStats()
     {
@@ -65,7 +76,25 @@ public class Attributes : ScriptableObject
     public void IncrementWeaponStat(Weapon.Stat stat)
     {
         int index = _weaponStats.IndexOf(_weaponStats.Find(x => x._stat == stat._stat));
-        _weaponStats[index]._value += new Weapon.Stat(stat._stat, stat._value, stat._flatValue, stat._isBasicStat)._value;
+        _weaponStats[index]._value += stat._value;
+    }
+
+    public void IncrementArmorStat(Armor.Stat stat)
+    {
+        int index = _armorStats.IndexOf(_armorStats.Find(x => x._stat == stat._stat));
+        _armorStats[index]._value += stat._value;
+    }
+
+    public void IncrementStat(Stat stat)
+    {
+        int index = _stats.IndexOf(_stats.Find(x => x.statType == stat.statType));
+        _stats[index].value += stat.value;
+    }
+
+    public void DecrementStat(Stat stat)
+    {
+        int index = _stats.IndexOf(_stats.Find(x => x.statType == stat.statType));
+        _stats[index].value -= stat.value;
     }
 
     public void SetStat(StatTypes statType, int value)
@@ -75,6 +104,28 @@ public class Attributes : ScriptableObject
             if(s.statType == statType)
             {
                 s.value = value;
+            }
+        }
+    }
+
+    public void SetWeaponStat(Weapon.Stat stat)
+    {
+        foreach (Weapon.Stat s in _weaponStats)
+        {
+            if (s._stat == stat._stat)
+            {
+                s._value = stat._value;
+            }
+        }
+    }
+
+    public void SetArmorStat(Armor.Stat stat)
+    {
+        foreach (Armor.Stat s in _armorStats)
+        {
+            if (s._stat == stat._stat)
+            {
+                s._value = stat._value;
             }
         }
     }
@@ -92,60 +143,17 @@ public class Attributes : ScriptableObject
         return null;
     }
 
-    public Armor.Stat GetArmorStat(Armor.Stat statType)
+    public Armor.Stat GetArmorStat(Armor.Stats statType)
     {
         foreach (Armor.Stat s in _armorStats)
         {
-            if (s._stat == statType._stat)
+            if (s._stat == statType)
             {
-                if (_statsDirty)
-                    CalculateStats();
-
                 return s;
             }
         }
 
         return null;
-    }
-
-
-    private void CalculateStats()
-    {
-        // use gear to determine stats
-
-
-        _statsDirty = false;
-    }
-
-    private void CalculateWeaponStats()
-    {
-        // use gear to determine stats
-
-
-        _weapStatsDirty = false;
-    }
-
-    private void CalculateArmorStats()
-    {
-        // use gear to determine stats
-
-
-        _armorStatsDirty = false;
-    }
-
-    public void SetStatsDirty()
-    {
-        _statsDirty = true;
-    }
-
-    public void SetWeaponStatsDirty()
-    {
-        _weapStatsDirty = true;
-    }
-
-    public void SetArmorStatsDirty()
-    {
-        _armorStatsDirty = true;
     }
 }
 

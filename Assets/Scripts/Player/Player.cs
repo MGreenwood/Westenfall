@@ -106,15 +106,10 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
     public event HealthChanged healthChanged;
 
     private void Start()
-    {
-        _startingAttributes = Instantiate(_startingAttributes);
-        _attributes = Instantiate(Resources.Load("ScriptableObjects/Attributes/BaselineAttributes")) as Attributes;
+    {      
         _equipment = GetComponent<Equipment>();
 
         SetupPlayer();
-
-        _health = _maxHealth;
-        _mana = _maxMana;
 
         StartCoroutine(ResourceRegen());
     }
@@ -125,6 +120,8 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
         // used attribute points = 
         _appliedAttributes = new AppliedAttributes();
         _availableAttributePoints = _level * _statsPerLevel - usedAttributePoints;
+        _startingAttributes = Instantiate(_startingAttributes);
+        _attributes = Instantiate(Resources.Load("ScriptableObjects/Attributes/BaselineAttributes")) as Attributes;
         CalculateStats();
         // load equipment from file
 
@@ -137,10 +134,9 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
         _maxHealth = (int)((float)_startingAttributes.GetStat(Attributes.StatTypes.Stamina).value * Attributes.StamToHP);
         _maxMana = (int)((float)_startingAttributes.GetStat(Attributes.StatTypes.Spirit).value * Attributes.SpiritToMP);
         */
-        _maxHealth = (int)((float)_attributes.GetStat(Attributes.StatTypes.Stamina).value * Attributes.StamToHP);
-        _maxMana = (int)((float)_attributes.GetStat(Attributes.StatTypes.Spirit).value * Attributes.SpiritToMP);
         
-
+        _health = _maxHealth;
+        _mana = _maxMana;
     }
 
     void UpdateStatDisplay()
@@ -181,6 +177,19 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
 
         // set the stats textbox text
         _statsText.text = stats;
+
+        // update any attributes that are affected by stat changes
+        _maxHealth = (int)((float)_attributes.GetStat(Attributes.StatTypes.Stamina).value * Attributes.StamToHP + _attributes.GetArmorStat(Armor.Stats.Health)._value);
+
+        _maxMana = (int)((float)_attributes.GetStat(Attributes.StatTypes.Spirit).value * Attributes.SpiritToMP + _attributes.GetArmorStat(Armor.Stats.Mana)._value);
+
+        if (_health > _maxHealth)
+            _health = _maxHealth;
+        if (_mana > _maxMana)
+            _mana = _maxMana;
+
+        D_HealthChanged?.Invoke();
+        D_ManaChanged?.Invoke();
     }
 
     public void SetClass(PlayerClass.ClassType classType)
@@ -190,9 +199,6 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
 
     public bool EquipArmor(InventoryItemObject inventoryItemObject) // right click equip
     {
-        // Player ensures the item can be equipped, sends to Equipment class that manages the actual equipping
-
-
         // ensure the stat requirements are met
         foreach (Attributes.Stat stat in (inventoryItemObject.GetItem() as Armor).GetStatRequirements())
         {
@@ -203,24 +209,23 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
             }
         }
 
-        // if slot is currently taken, return the inventory object that is currently equipped
-
+        // level requirements
+        if (inventoryItemObject.GetItem().GetLevelRequirement() > _level)
+            return false;
 
         // actually equip the item
-        _equipment.Equip(inventoryItemObject);
+        _equipment.Equip(inventoryItemObject, ref _attributes);
 
-        // place item in applicable location
 
-        CalculateStats();
+        // place item in applicable location on character
+
+        UpdateStatDisplay();
 
         return true;
     }
 
     public bool EquipWeapon(InventoryItemObject inventoryItemObject)
     {
-        // Player ensures the item can be equipped, sends to Equipment class that manages the actual equipping
-
-
         // ensure the stat requirements are met
         foreach(Attributes.Stat stat in (inventoryItemObject.GetItem() as Weapon).GetStatRequirements())
         {
@@ -231,19 +236,29 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
             }
         }
 
-        // if slot is currently taken, return the inventory object that is currently equipped
-
+        // level requirements
+        if (inventoryItemObject.GetItem().GetLevelRequirement() > _level)
+        {
+            Debug.Log($"Requires level {inventoryItemObject.GetItem().GetLevelRequirement()}, you are level {_level}");
+            return false;
+        }
 
         // actually equip the item
-        _equipment.Equip(inventoryItemObject);
+        _equipment.Equip(inventoryItemObject, ref _attributes);
 
         // place weapon on characters back/hip as appropriate
 
 
         // update stats
-        CalculateStats();
+        UpdateStatDisplay();
 
         return true;
+    }
+
+    public void Unequip(Item.EquipmentSlot slot)
+    {
+        _equipment.Unequip(slot, ref _attributes);
+        UpdateStatDisplay();
     }
 
     public Inventory GetInventory() => _inventory;
@@ -285,28 +300,14 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
         {
             // get starter values
             value += _startingAttributes.GetStat(stat.statType).value;
-
-            // get weapon/armor basic stats
-            foreach(Attributes.Stat wStat in _equipment.GetBasicStats())
-            {
-                if(wStat.statType == stat.statType)
-                {
-                    value += wStat.value;
-                }
-            }
-
-            // get selected attribute points
-            int statType = Convert.ToInt32(stat.statType);
-            value += _appliedAttributes.GetValue(statType);
-
+            
             _attributes.SetStat(stat.statType, value);
 
             value = 0;
         }
 
-        float percentageValue = 0f;
-        int   flatValue       = 0 ;
-        // Weapon stats
+        _maxHealth = (int)((float)_attributes.GetStat(Attributes.StatTypes.Stamina).value * Attributes.StamToHP);
+        _maxMana = (int)((float)_attributes.GetStat(Attributes.StatTypes.Spirit).value * Attributes.SpiritToMP);
 
         UpdateStatDisplay();
     }
@@ -348,12 +349,12 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
         {
             if (_health < _maxHealth)
             {
-                AddHealth((int)((float)_attributes.GetStat(Attributes.StatTypes.Dexterity).value * Attributes.Bonus_Mod));
+                AddHealth((int)((float)_attributes.GetStat(Attributes.StatTypes.Dexterity).value * Attributes.Bonus_Mod + _attributes.GetArmorStat(Armor.Stats.HealthRegen)._value));
             }
 
             if (_mana < _maxMana)
             {
-                AddMana((int)((float)_attributes.GetStat(Attributes.StatTypes.Spirit).value * Attributes.Bonus_Mod));
+                AddMana((int)((float)_attributes.GetStat(Attributes.StatTypes.Spirit).value * Attributes.Bonus_Mod + _attributes.GetArmorStat(Armor.Stats.ManaRegen)._value));
             }
 
             yield return new WaitForSeconds(1);

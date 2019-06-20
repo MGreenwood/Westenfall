@@ -23,8 +23,21 @@ public class Weapon : Item
             _stat = stat;
             _value = value;
             _flatValue = flatValue;
+            _isBasicStat = isBasicStat;
         }
 
+        public static Stat operator+(Stat s1, Stat s2)
+        {
+            return new Stat(s1._stat, s1._value + s2._value,s1._flatValue, s1._isBasicStat);
+        }
+
+        public static Stat operator -(Stat s1, Stat s2)
+        {
+            if(s1._value - s2._value >= 0)
+                return new Stat(s1._stat, s1._value - s2._value, s1._flatValue, s1._isBasicStat);
+            else
+                return new Stat(s1._stat, 0f, s1._flatValue, s1._isBasicStat);
+        }
     }
 
     Item.ItemSize[] WeaponSizes = { new Item.ItemSize(2, 5), // Main Hand
@@ -45,9 +58,6 @@ public class Weapon : Item
     Attributes.Stat[] _statRequirements;
 
     [SerializeField]
-    int levelRequirement;
-
-    [SerializeField]
     SlotType _slotType;
 
     [SerializeField]
@@ -55,21 +65,7 @@ public class Weapon : Item
 
     [SerializeField]
     int maxStats;
-
-    /*public void CreateNew(WeaponType weaponType, params Stat[] stats)
-    {
-        _stats = new List<Stat>();
-
-        _itemType = ItemType.Weapon;
-
-        foreach(Stat s in stats)
-        {
-            _stats.Add(s);
-        }
-
-        init();
-    }*/
-
+    
     public override void init()
     {
         switch (_slotType)

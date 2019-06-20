@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public abstract class Item : UnityEngine.ScriptableObject
 {
@@ -33,15 +34,19 @@ public abstract class Item : UnityEngine.ScriptableObject
     [SerializeField]
     GameObject prefab;
 
+    [SerializeField]
     protected ItemType _itemType;
     protected ItemSize _itemSize;
-    
 
+    [SerializeField]
+    int _levelRequirement = 0;
 
     public virtual string GetItemName()
     {
         return _itemName;
     }
+
+    public int GetLevelRequirement() => _levelRequirement;
 
     public virtual void init()
     {
@@ -60,4 +65,6 @@ public abstract class Item : UnityEngine.ScriptableObject
 
     public Rarity GetRarity() => _rarity;
     public EquipmentSlot GetEquipmentSlot() => _equipmentSlot;
+
+    public ItemType GetItemType() => _itemType;
 }

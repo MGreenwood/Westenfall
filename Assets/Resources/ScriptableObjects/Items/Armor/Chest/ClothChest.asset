@@ -9,26 +9,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6ad6f9d24e8d58847b27b96da3a5bb16, type: 3}
-  m_Name: WoodenBow
+  m_Script: {fileID: 11500000, guid: 3ca9d919c2209f8459f36d0c7c83b469, type: 3}
+  m_Name: ClothChest
   m_EditorClassIdentifier: 
-  _itemName: Wooden Bow
+  _itemName: Cloth Chest
   _flavorText: 
   _rarity: 0
-  _inventorySprite: {fileID: 21300000, guid: 195bc5161658f9e41b8e7764382f9e7c, type: 3}
-  _equipmentSlot: 2
-  prefab: {fileID: 3742627151797607808, guid: 6770e20b5fa04104e85e463f63032056, type: 3}
+  _inventorySprite: {fileID: 21300000, guid: 383a4ee9a785fd94a8a9f91c3110eab2, type: 3}
+  _equipmentSlot: 3
+  prefab: {fileID: 0}
   _itemType: 0
   _levelRequirement: 1
+  _slot: 1
+  _armorValue: 20
   _stats:
-  - _stat: 1
+  - _stat: 0
     _value: 25
-    _flatValue: 0
     _isBasicStat: 1
-  _weaponType: 2
-  _statRequirements:
-  - statType: 1
-    value: 20
-  _slotType: 0
+  - _stat: 6
+    _value: 18
+    _isBasicStat: 0
   isMagicItem: 0
   maxStats: 0
+  _statRequirements: []

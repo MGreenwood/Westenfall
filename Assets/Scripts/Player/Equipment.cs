@@ -10,8 +10,6 @@ public class Equipment : MonoBehaviour
     [SerializeField]
     InventoryEquipmentSlot[] _equipmentSlots;
 
-    [SerializeField]
-    Attributes _attributes;
 
     Transform _slot;
     Player _player;
@@ -19,7 +17,6 @@ public class Equipment : MonoBehaviour
     private void Start()
     {
         _player = GetComponent<Player>();
-        _attributes = Instantiate(Resources.Load("ScriptableObjects/Attributes/BaselineAttributes")) as Attributes;
     }
 
     public InventoryEquipmentSlot GetSlotContents(int index)
@@ -29,79 +26,101 @@ public class Equipment : MonoBehaviour
         else return null;
     }
 
-    void RecalculateStats()
+    public void Equip(InventoryItemObject item, ref Attributes playerAttributes)
     {
-        // reset the attributes
-        _attributes = Instantiate(Resources.Load("ScriptableObjects/Attributes/BaselineAttributes")) as Attributes;
+        Item.EquipmentSlot eSlot = item.GetItem().GetEquipmentSlot();
+        int slot = Convert.ToInt32(eSlot);
 
-        foreach (InventoryEquipmentSlot slot in _equipmentSlots)
+        Unequip(eSlot, ref playerAttributes);
+
+        // add the new stats
+        if (item.GetItem()?.GetItemType() == Item.ItemType.Weapon)
         {
-            if(slot.GetItem() is Weapon)
+            foreach (Weapon.Stat stat in (item.GetItem() as Weapon).GetStats())
             {
-                foreach(Weapon.Stat stat in slot.GetWeaponStats()) // for every weapon stat
+                if (stat._isBasicStat)
                 {
-                    // find the matching weapon attribute
-                    try
-                    {
-                        _attributes.IncrementWeaponStat(stat);
-                        //_attributes.GetWeaponStats().Find(x => x._stat == stat._stat)._value += stat._value;
-                    }
-                    catch { }
-                        
-                    
+                    string enumString = stat._stat.ToString();
+                    Attributes.StatTypes statType = (Attributes.StatTypes)Enum.Parse(typeof(Attributes.StatTypes), enumString);
+                    playerAttributes.IncrementStat(new Attributes.Stat(statType, (int)stat._value));
+                }
+                else
+                {
+                    Weapon.Stat weapStat = playerAttributes.GetWeaponStats().Find(x => x._stat == stat._stat);
+                    weapStat += stat;
+                    playerAttributes.SetWeaponStat(weapStat);
                 }
             }
-            else if (slot.GetItem() is Armor)
+        }
+        else if (item.GetItem()?.GetItemType() == Item.ItemType.Armor)
+        {
+            foreach (Armor.Stat stat in (item.GetItem() as Armor).GetStats())
             {
-                foreach (Armor.Stat stat in slot.GetArmorStats())
+                if (stat._isBasicStat)
                 {
-                    // find the matching armor attribute
-                    try
-                    {
-                        _attributes.GetArmorStats().Find(x => x._stat == stat._stat)._value += stat._value;
-                    }
-                    catch { }
+                    string enumString = stat._stat.ToString();
+                    Attributes.StatTypes statType = (Attributes.StatTypes)Enum.Parse(typeof(Attributes.StatTypes), enumString);
+                    playerAttributes.IncrementStat(new Attributes.Stat(statType, (int)stat._value));
+                }
+                else
+                {
+                    Armor.Stat armorStat = playerAttributes.GetArmorStats().Find(x => x._stat == stat._stat);
+                    armorStat += stat;
+                    playerAttributes.SetArmorStat(armorStat);
                 }
             }
         }
 
-        Player.instance.CalculateStats();
-    }
-
-    public Attributes.Stat[] GetBasicStats()
-    {
-        return _attributes.GetStats();
-    }
-
-    public void Equip(InventoryItemObject item)
-    {
-        int slot = Convert.ToInt32(item.GetItem().GetEquipmentSlot());
         _equipmentSlots[slot].SetItem(item);
-        RecalculateStats();
     }
 
-    public void Unequip(Item.EquipmentSlot slot)
+
+    public void Unequip(Item.EquipmentSlot eSlot, ref Attributes playerAttributes)
     {
-        switch(slot)
+        // retrieve the slot that takes that type of item
+        int slot = Convert.ToInt32(eSlot);
+
+        // retrieve the old stats and remove them from the attributes
+        if (_equipmentSlots[slot].GetItem()?.GetItemType() == Item.ItemType.Weapon)
         {
-            case Item.EquipmentSlot.Head:
-                _equipmentSlots[0].SetItemNull();
-                break;
-            case Item.EquipmentSlot.Hands:
-                _equipmentSlots[1].SetItemNull();
-                break;
-            case Item.EquipmentSlot.Weapon:
-                _equipmentSlots[2].SetItemNull();
-                break;
-            case Item.EquipmentSlot.Chest:
-                _equipmentSlots[3].SetItemNull();
-                break;
-            case Item.EquipmentSlot.Shield:
-                _equipmentSlots[4].SetItemNull();
-                break;
-            case Item.EquipmentSlot.Feet:
-                _equipmentSlots[5].SetItemNull();
-                break;
+            foreach (Weapon.Stat stat in (_equipmentSlots[slot].GetItem() as Weapon).GetStats())
+            {
+                if (stat._isBasicStat)
+                {
+                    string enumString = stat._stat.ToString();
+                    Attributes.StatTypes statType = (Attributes.StatTypes)Enum.Parse(typeof(Attributes.StatTypes), enumString);
+                    playerAttributes.DecrementStat(new Attributes.Stat(statType, (int)stat._value));
+                }
+                else
+                {
+                    Weapon.Stat weapStat = playerAttributes.GetWeaponStats().Find(x => x._stat == stat._stat);
+                    weapStat -= stat;
+                    playerAttributes.SetWeaponStat(weapStat);
+                }
+            }
+
+            _equipmentSlots[slot].SetItemNull();
         }
+        else if (_equipmentSlots[slot].GetItem()?.GetItemType() == Item.ItemType.Armor)
+        {
+            foreach (Armor.Stat stat in (_equipmentSlots[slot].GetItem() as Armor).GetStats())
+            {
+                if (stat._isBasicStat)
+                {
+                    string enumString = stat._stat.ToString();
+                    Attributes.StatTypes statType = (Attributes.StatTypes)Enum.Parse(typeof(Attributes.StatTypes), enumString);
+                    playerAttributes.DecrementStat(new Attributes.Stat(statType, (int)stat._value));
+                }
+                else
+                {
+                    Armor.Stat armorStat = playerAttributes.GetArmorStats().Find(x => x._stat == stat._stat);
+                    armorStat -= stat;
+                    playerAttributes.SetArmorStat(armorStat);
+                }
+            }
+
+            _equipmentSlots[slot].SetItemNull();
+        } 
+
     }
 }

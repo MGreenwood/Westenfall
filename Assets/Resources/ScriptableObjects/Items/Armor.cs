@@ -23,12 +23,26 @@ public class Armor : Item
     {
         public Stats _stat;
         public float _value;
-        public bool isBasicStat;
+        public bool _isBasicStat;
 
-        public Stat(Stats stat, float value)
+        public Stat(Stats stat, float value, bool isBasicStat)
         {
             _stat = stat;
             _value = value;
+            _isBasicStat = isBasicStat;
+        }
+
+        public static Stat operator +(Stat s1, Stat s2)
+        {
+            return new Stat(s1._stat, s1._value + s2._value, s1._isBasicStat);
+        }
+
+        public static Stat operator -(Stat s1, Stat s2)
+        {
+            if(s1._value - s2._value <0)
+                return new Stat(s1._stat, 0, s1._isBasicStat);
+
+            return new Stat(s1._stat, s1._value - s2._value, s1._isBasicStat);
         }
     }
 
@@ -51,21 +65,7 @@ public class Armor : Item
 
     [SerializeField]
     Attributes.Stat[] _statRequirements;
-
-    /*public void CreateNew(Slot slot, Item.Rarity rarity, params Stat[] stats)
-    {
-        _itemType = ItemType.Armor;
-        _rarity = rarity;
-        _slot = slot;
-
-        
-
-        foreach(Stat s in stats)
-        {
-            _stats.Add(s);
-        }
-    }*/
-
+    
     public override void init()
     {
         switch (_slot)

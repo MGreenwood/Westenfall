@@ -16,9 +16,13 @@ MonoBehaviour:
   _flavorText: 
   _rarity: 0
   _inventorySprite: {fileID: 21300000, guid: a684581cf2f7f844686d2944deda96df, type: 3}
+  _equipmentSlot: 0
   prefab: {fileID: 1844119241748836620, guid: e86c610f6e4d2d94e9d8cd55a127d9c9, type: 3}
+  _itemType: 1
+  _levelRequirement: 1
+  _stats: []
   _weaponType: 0
   _statRequirements: []
-  levelRequirement: 0
   _slotType: 0
   isMagicItem: 0
+  maxStats: 0

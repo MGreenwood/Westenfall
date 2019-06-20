@@ -27,49 +27,68 @@ MonoBehaviour:
   - _stat: 0
     _value: 0
     _flatValue: 1
+    _isBasicStat: 1
   - _stat: 1
     _value: 0
     _flatValue: 1
+    _isBasicStat: 1
   - _stat: 2
     _value: 0
     _flatValue: 1
+    _isBasicStat: 1
   - _stat: 3
     _value: 0
     _flatValue: 1
+    _isBasicStat: 0
   - _stat: 4
     _value: 0
-    _flatValue: 0
+    _flatValue: 1
+    _isBasicStat: 0
   - _stat: 5
     _value: 0
     _flatValue: 0
+    _isBasicStat: 0
   - _stat: 6
     _value: 0
-    _flatValue: 1
+    _flatValue: 0
+    _isBasicStat: 0
   - _stat: 7
     _value: 0
     _flatValue: 1
+    _isBasicStat: 0
   - _stat: 8
     _value: 0
-    _flatValue: 0
+    _flatValue: 1
+    _isBasicStat: 0
   - _stat: 9
     _value: 0
-    _flatValue: 1
+    _flatValue: 0
+    _isBasicStat: 0
   _armorStats:
   - _stat: 0
     _value: 0
+    _isBasicStat: 1
   - _stat: 1
     _value: 0
+    _isBasicStat: 1
   - _stat: 2
     _value: 0
+    _isBasicStat: 0
   - _stat: 3
     _value: 0
+    _isBasicStat: 0
   - _stat: 4
     _value: 0
+    _isBasicStat: 0
   - _stat: 5
     _value: 0
+    _isBasicStat: 0
   - _stat: 6
     _value: 0
+    _isBasicStat: 0
   - _stat: 7
     _value: 0
+    _isBasicStat: 0
   - _stat: 8
     _value: 0
+    _isBasicStat: 0

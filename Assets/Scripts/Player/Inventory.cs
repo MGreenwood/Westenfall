@@ -89,6 +89,10 @@ public class Inventory : MonoBehaviour
         {
             AddItem(Instantiate(Resources.Load<Armor>("ScriptableObjects/Items/Armor/Head/SoftCap") as Armor));
         }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            AddItem(Instantiate(Resources.Load<Armor>("ScriptableObjects/Items/Armor/Chest/ClothChest") as Armor));
+        }
 
         // Display inventory index over mouse
         if (GameManager.instance.Debug)
