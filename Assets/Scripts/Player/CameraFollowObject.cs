@@ -19,8 +19,11 @@ public class CameraFollowObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        distance -= Input.GetAxis("Mouse ScrollWheel") * zoomSpeed * Time.deltaTime;
-        distance = Mathf.Clamp(distance, minDist, maxDist);
+        if (!UIManager.instance._isOverUI)
+        {
+            distance -= Input.GetAxis("Mouse ScrollWheel") * zoomSpeed * Time.deltaTime;
+            distance = Mathf.Clamp(distance, minDist, maxDist);
+        }
     }
 
     private void FixedUpdate()

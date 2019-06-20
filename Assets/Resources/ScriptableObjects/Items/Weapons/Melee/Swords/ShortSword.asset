@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ad6f9d24e8d58847b27b96da3a5bb16, type: 3}
+  m_Name: ShortSword
+  m_EditorClassIdentifier: 
+  _itemName: Short Sword
+  _flavorText: 
+  _rarity: 0
+  _inventorySprite: {fileID: 21300000, guid: a684581cf2f7f844686d2944deda96df, type: 3}
+  _equipmentSlot: 2
+  prefab: {fileID: 1844119241748836620, guid: e86c610f6e4d2d94e9d8cd55a127d9c9, type: 3}
+  _itemType: 1
+  _levelRequirement: 1
+  _stats:
+  - _stat: 0
+    _value: 12
+    _flatValue: 1
+    _isBasicStat: 1
+  - _stat: 3
+    _value: 6
+    _flatValue: 1
+    _isBasicStat: 0
+  _weaponType: 0
+  _statRequirements:
+  - statType: 0
+    value: 15
+  - statType: 1
+    value: 15
+  _slotType: 0
+  isMagicItem: 0
+  maxStats: 0

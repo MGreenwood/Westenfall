@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ad6f9d24e8d58847b27b96da3a5bb16, type: 3}
+  m_Name: RuneBow
+  m_EditorClassIdentifier: 
+  _itemName: RuneBow
+  _flavorText: 
+  _rarity: 1
+  _inventorySprite: {fileID: 21300000, guid: 195bc5161658f9e41b8e7764382f9e7c, type: 3}
+  _equipmentSlot: 2
+  prefab: {fileID: 3742627151797607808, guid: 6770e20b5fa04104e85e463f63032056, type: 3}
+  _itemType: 0
+  _levelRequirement: 6
+  _stats:
+  - _stat: 1
+    _value: 15
+    _flatValue: 0
+    _isBasicStat: 0
+  - _stat: 3
+    _value: 6
+    _flatValue: 1
+    _isBasicStat: 0
+  _weaponType: 2
+  _statRequirements:
+  - statType: 1
+    value: 20
+  _slotType: 0
+  isMagicItem: 1
+  maxStats: 2

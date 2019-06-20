@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d80093c431abe444a8251ac23d10eb1, type: 3}
+  m_Name: DarknessRising
+  m_EditorClassIdentifier: 
+  abilityName: Darkness Rising
+  cooldown: 5
+  range: 20
+  cost: 6
+  castTime: 0.6
+  damage: 0
+  Class: 2
+  tooltipDescription: 
+  tooltipFlavorText: 
+  _abilityType: 0
+  _abilitySlot: 3
+  _radius: 15
+  _groundSprite: {fileID: 21300000, guid: 8262571c950952247a48fbf3f64e7078, type: 3}
+  _duration: 6
+  _effect:
+    effectType: 3
+    numTicks: 0
+    value: 3
+  _prefab: {fileID: 7086845256420508984, guid: c03a80f7f9dfa314c96d49edffb9d763, type: 3}

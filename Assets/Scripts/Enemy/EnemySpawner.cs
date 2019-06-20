@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
@@ -21,7 +22,15 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     float _rareSpawnChance = 0f;
 
-    public void SpawnEnemies(ref List<Enemy> possible)
+    List<Enemy> possible;
+
+    public void SpawnEnemies(ref List<Enemy> possible_)
+    {
+        possible = possible_;
+        StartCoroutine(DelaySpawn());
+    }
+
+    void Spawn()
     {
         for (int e = possible.Count - 1; e >= 0; e--)
         {
@@ -36,11 +45,16 @@ public class EnemySpawner : MonoBehaviour
 
         int index = UnityEngine.Random.Range(0, _possibleEnemies.Count);
 
-        Instantiate(_possibleEnemies[index], 
-            transform.position + new Vector3(0, _possibleEnemies[index].transform.localScale.y, 0), 
-            Quaternion.identity, 
+        Instantiate(_possibleEnemies[index],
+            transform.position + new Vector3(0, _possibleEnemies[index].transform.localScale.y, 0),
+            Quaternion.identity,
             transform);
     }
 
+    IEnumerator DelaySpawn() // allow 
+    {
+        yield return new WaitForSeconds(1);
 
+        Spawn();
+    }
 }

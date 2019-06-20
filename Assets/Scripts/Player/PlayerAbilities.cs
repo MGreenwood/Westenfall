@@ -11,7 +11,7 @@ public class PlayerAbilities : MonoBehaviour
 
     [SerializeField] private Ability[] abilities;
     [SerializeField] private bool[] available; // parallel array stating if off cooldown // true == available to cast
-    private int numAbilities = 5;
+
     private int lastIndex = -1; // the last ability that was cast
 
     // events
@@ -23,6 +23,8 @@ public class PlayerAbilities : MonoBehaviour
     public delegate void CastingComplete(); // invoked by cast bar when timer is up
     private CastingComplete castingComplete;
 
+    Player player;
+
     private bool gcd = false;
 
     public const float Global_Cooldown = 0.3f;
@@ -32,17 +34,21 @@ public class PlayerAbilities : MonoBehaviour
         //abilities = new Ability[numAbilities];
         //available = new bool[numAbilities];
         SetupPlayer();
-
+        abilities[0] = Instantiate(abilities[0]);
+        abilities[1] = Instantiate(abilities[1]);
+        abilities[2] = Instantiate(abilities[2]);
+        abilities[3] = Instantiate(abilities[3]);
         abilities[0].SetOwner(gameObject);
         abilities[1].SetOwner(gameObject);
         abilities[2].SetOwner(gameObject);
+        abilities[3].SetOwner(gameObject);
 
         castingComplete += CastingFinished; // subscribe to event for cast bar to invoke
     }
 
     void SetupPlayer() // load save
     {
-
+        player = GetComponent<Player>();
     }
 
     void SetAbility(int index, Ability ability)
@@ -73,6 +79,10 @@ public class PlayerAbilities : MonoBehaviour
             {
                 ActivateAbility(2);
             }
+            else if (Input.GetKeyDown(KeyCode.E) && abilities[3] != null) // movement
+            {
+                ActivateAbility(3);
+            }
         }
 
         // Cast Canceling
@@ -88,6 +98,7 @@ public class PlayerAbilities : MonoBehaviour
         if(abilities[lastIndex].Cast())
         {
             StartCoroutine(CooldownManager(lastIndex));
+            player.RemoveMana(abilities[lastIndex].GetCost());
         }
 
         casting = false;
@@ -95,7 +106,7 @@ public class PlayerAbilities : MonoBehaviour
 
     void ActivateAbility(int index)
     {
-        if (available[index] && !gcd)
+        if (available[index] && !gcd && player.GetCurrentMana() > abilities[index].GetCost())
         {
             lastIndex = index;
             StartCoroutine(GlobalCooldown());

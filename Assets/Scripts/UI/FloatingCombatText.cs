@@ -17,16 +17,16 @@ public class FloatingCombatText : MonoBehaviour
         cam = Camera.main;
     }
 
-    private void ShowCombatText(float damage, Effect.EffectType effectType, bool crit)
+    private void ShowCombatText(float damage, Effect.AbilityEffect effect, bool crit)
     {
         if (UISettings.instance.CombatActive)
         {
             // show the combat text
-            initCBT(damage, effectType, crit);
+            initCBT(damage, effect, crit);
         }
     }
 
-    void initCBT(float damage, Effect.EffectType effectType, bool crit)
+    void initCBT(float damage, Effect.AbilityEffect effect, bool crit)
     {
         GameObject temp = Instantiate(combatText) as GameObject;
         temp.GetComponent<CombatTextDestroy>().SetParentWorldTransform(transform);
@@ -37,7 +37,7 @@ public class FloatingCombatText : MonoBehaviour
         tempRect.transform.localPosition = Vector3.zero;
         tempRect.transform.localScale = combatText.transform.localScale;
 
-        switch (effectType)
+        switch (effect.effectType)
         {
             case Effect.EffectType.Basic:
                 temp.GetComponent<TMPro.TextMeshProUGUI>().color = textColors[0];

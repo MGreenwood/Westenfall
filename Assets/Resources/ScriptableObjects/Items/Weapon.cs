@@ -5,21 +5,38 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "Items/Weapon")]
 public class Weapon : Item
 {
-    public enum Stats { Strength, Intellect, // Base Stats
+    public enum Stats { Strength, Dexterity, Magic, // Base Stats
                         PhysicalDamage, MagicDamage, CritRate, CritDamage, MinDamage, MaxDamage, // Damage Mods
-                        CooldownReduction // Misc
+                        CooldownReduction, HpOnHit // Misc
     } 
-    public struct Stat
-    {
-        public readonly Stats _stat;
-        public readonly float _value;
-        public readonly bool _flatValue;
 
-        public Stat(Stats stat, float value, bool flatValue)
+    [System.Serializable]
+    public class Stat
+    {
+        public Stats _stat;
+        public float _value;
+        public bool _flatValue;
+        public bool _isBasicStat;
+
+        public Stat(Stats stat, float value, bool flatValue, bool isBasicStat)
         {
             _stat = stat;
             _value = value;
             _flatValue = flatValue;
+            _isBasicStat = isBasicStat;
+        }
+
+        public static Stat operator+(Stat s1, Stat s2)
+        {
+            return new Stat(s1._stat, s1._value + s2._value,s1._flatValue, s1._isBasicStat);
+        }
+
+        public static Stat operator -(Stat s1, Stat s2)
+        {
+            if(s1._value - s2._value >= 0)
+                return new Stat(s1._stat, s1._value - s2._value, s1._flatValue, s1._isBasicStat);
+            else
+                return new Stat(s1._stat, 0f, s1._flatValue, s1._isBasicStat);
         }
     }
 
@@ -27,32 +44,28 @@ public class Weapon : Item
                                     new Item.ItemSize(3,4),  // Shield
     };
 
-    public enum WeaponType { Sword, Staff, Dagger }
+    public enum WeaponType { Sword, Staff, Bow }
     public enum SlotType { MainHand, OffHand }
     
     [SerializeField]
     List<Stat> _stats;
+
     [Space(15)]
     [SerializeField]
     private WeaponType _weaponType;
 
     [SerializeField]
+    Attributes.Stat[] _statRequirements;
+
+    [SerializeField]
     SlotType _slotType;
 
-    /*public void CreateNew(WeaponType weaponType, params Stat[] stats)
-    {
-        _stats = new List<Stat>();
+    [SerializeField]
+    bool isMagicItem;
 
-        _itemType = ItemType.Weapon;
-
-        foreach(Stat s in stats)
-        {
-            _stats.Add(s);
-        }
-
-        init();
-    }*/
-
+    [SerializeField]
+    int maxStats;
+    
     public override void init()
     {
         switch (_slotType)
@@ -66,10 +79,12 @@ public class Weapon : Item
         }
     }
 
-    
+    public WeaponType GetWeaponType() => _weaponType;
 
     public List<Stat> GetStats()
     {
         return _stats;
     }
+
+    public Attributes.Stat[] GetStatRequirements() => _statRequirements;
 }

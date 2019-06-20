@@ -7,3 +7,8 @@ public interface IDroppableArea
 {
     Inventory GetInventoryObject();
 }
+
+public interface IEquippableArea
+{
+    InventoryEquipmentSlot GetEquipmentSlot();
+}

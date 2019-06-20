@@ -59,7 +59,18 @@ public class Inventory : MonoBehaviour
     {
         _inventory = new InventorySlot[_width, _height]; // column / row
 
+        RecalculateBounds();
+    }
+
+    public Image GetSelectionArea()
+    {
+        return _selectionArea;
+    }
+
+    public void RecalculateBounds()
+    {
         RectTransform rt = _selectionArea.rectTransform;
+
         corners = new Vector3[4];
         rt.GetWorldCorners(corners);
         rectStart = corners[1];
@@ -68,20 +79,19 @@ public class Inventory : MonoBehaviour
         globalSizeOfTile = (corners[2].x - corners[1].x) / _width;
     }
 
-    public Image GetSelectionArea()
-    {
-        return _selectionArea;
-    }
-
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.J))
         {
-            AddItem(Resources.Load("ScriptableObjects/Items/Weapons/Melee/SuperCoolSword") as Item);
+            AddItem(Instantiate(Resources.Load<Item>("ScriptableObjects/Items/Weapons/Melee/Swords/ShortSword") as Weapon));
         }
         if (Input.GetKeyDown(KeyCode.K))
         {
-            AddItem(Resources.Load("ScriptableObjects/Items/Armor/Head/SoftCap") as Item);
+            AddItem(Instantiate(Resources.Load<Armor>("ScriptableObjects/Items/Armor/Head/SoftCap") as Armor));
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            AddItem(Instantiate(Resources.Load<Armor>("ScriptableObjects/Items/Armor/Chest/ClothChest") as Armor));
         }
 
         // Display inventory index over mouse
@@ -113,6 +123,7 @@ public class Inventory : MonoBehaviour
     // index is x position, y position
     Index IndexAtPosition(Vector3 position)
     {        
+
         Vector2 offset = new Vector2(position.x - corners[1].x, corners[1].y - position.y);
 
         Index ndx = new Index((int)(offset.x / globalSizeOfTile),(int)(offset.y / globalSizeOfTile));
@@ -143,6 +154,40 @@ public class Inventory : MonoBehaviour
         return false;
     }
 
+    // Add item to this inventory from other inventory or equipment slot
+    // this returns the size the image must be adjusted to
+    public bool AddItem(Item item, Vector3 clickPos, ref Image img)
+    {
+        // item already exists, do not need to init
+        // must set the size of the image
+
+        // if cannot place where clicked, add to first available
+        for (int r = 0; r < _height; r++)
+        {
+            for (int c = 0; c < _width; c++)
+            {
+                Index nx = new Index(c, r);
+                if (TryFit(item, nx))
+                {
+                    AddToSlot(item, nx);
+                    //CreateImage(nx);
+                    // set size of existing image
+                    int wid = item.GetItemSize()._width;
+                    int hig = item.GetItemSize()._height;
+                    img.rectTransform.localScale = Vector3.one;
+                    img.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, localSizeOfTile * wid);
+                    img.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, localSizeOfTile * hig);
+                    
+                    // set position of image
+                    img.rectTransform.localPosition = PositionAtIndex(nx._x, nx._y) - HalfTile();
+
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public void AddToSlot(Item item, Index index)
     {
         // This should only be called AFTER confirming an item fits in a slot
@@ -165,7 +210,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    void RemoveFromSlot(Item item, Index index)
+    public void RemoveFromSlot(Item item, Index index)
     {
         Item.ItemSize itemSize = item.GetItemSize();
 
@@ -195,10 +240,22 @@ public class Inventory : MonoBehaviour
         img.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, localSizeOfTile * hig);
 
         // set position of image
-        img.rectTransform.localPosition = PositionAtIndex(index._x, index._y) + OffsetForLocalSize(new Item.ItemSize(wid, hig)) - HalfTile();
+        img.rectTransform.localPosition = PositionAtIndex(index._x, index._y) - HalfTile();
 
         // set sprite of image
         img.sprite = item.GetSprite();
+    }
+
+    public void SetParentAndSize(InventoryItemObject item)
+    {
+        item.GetImage().transform.SetParent(transform);
+
+        // set size of image
+        int wid = item.GetItem().GetItemSize()._width;
+        int hig = item.GetItem().GetItemSize()._height;
+        item.GetImage().rectTransform.localScale = Vector3.one;
+        item.GetImage().rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, localSizeOfTile * wid);
+        item.GetImage().rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, localSizeOfTile * hig);
     }
 
     // size of tile +x -y
@@ -206,44 +263,36 @@ public class Inventory : MonoBehaviour
 
     public bool TryMove(Item item, Index index, Vector3 clickPos, out Index newIndex)
     {
-        // if the item is in the inventory already then we can use those slots
-        // **********************************
-        // if it isnt, then slots are marked correctly already
-
-
-        // index points to center of image object
-        // need to calculate offset
-        Vector3 topPosition = clickPos - OffsetForLocalSize(item.GetItemSize()) + HalfTile();
-        newIndex = IndexAtPosition(topPosition);
+        // index points to top left of object        
+        newIndex = IndexAtPosition(clickPos);
         
         if (TryFit(item, newIndex))
         {
             RemoveFromSlot(item, index);
-            Debug.Log(string.Format("old index {0},{1}", index._x, index._y));
             AddToSlot(item, newIndex);
             return true;
         }
-
-
-
-        // if extending to top left and hit inventory bounds, just use 0
-
-        // remove from old index
-        Debug.Log("Tried moving an item...didnt work");
-
-        // check for overlap
-        
-        // add to new index after check
-
-        // this happens after mouse release so if check returns false, do nothing (item will return itsself)
-
         
         return false;
     }
 
     public void UpdatePosition(InventoryItemObject itemObject, Index ndx)
     {
-        itemObject.transform.localPosition = PositionAtIndex(ndx._x, ndx._y) + OffsetForGlobalSize(itemObject.GetItem().GetItemSize());// + HalfTile();
+        itemObject.transform.localPosition = PositionAtIndex(ndx._x, ndx._y) - HalfTile();
+        //OutputInventoryState(); // TODO Take this out
+    }
+
+    public void OutputInventoryState()
+    {
+        for(int r=0;r<_height;r++)            
+        {
+            string line = "";
+            for(int c=0;c<_width;c++)
+            {
+                line += _inventory[c, r]._slotStatus == SlotStatus.Available ? "a, " : "t, ";
+            }
+            Debug.Log(line);
+        }
     }
 
     // returns a vector for placing item image, +x -y
@@ -265,20 +314,17 @@ public class Inventory : MonoBehaviour
 
     bool TryFit(Item item, Index index)
     {
-        for (int r = index._y; r < index._y + item.GetItemSize()._height - 1; r++)
+        for (int r = index._y; r < index._y + item.GetItemSize()._height ; r++)
         {
-            for (int c = index._x; c < index._x + item.GetItemSize()._width - 1; c++)
+            for (int c = index._x; c < index._x + item.GetItemSize()._width ; c++)
             {
             
-                if(c >= _inventory.GetLength(0) -1 || r >= _inventory.GetLength(1) -1) // outside of inventory bounds
+                if(c >= _inventory.GetLength(0) || r >= _inventory.GetLength(1) ) // outside of inventory bounds
                 {
                     return false;
                 }
 
-                if(_inventory[c,r]._slotStatus != SlotStatus.Available)// &&
-                    //_inventory[c, r]._item != item) // only hit itself, this will be resolved when moving
-                    // doesnt work because of duplicate rolls on items, need another way to indtify
-                    // possible just call EvaluateSelf() or something using the item's current index
+                if(_inventory[c,r]._slotStatus != SlotStatus.Available && _inventory[c,r]._item.GetInstanceID() != item.GetInstanceID())
                 {
                     return false;
                 }
