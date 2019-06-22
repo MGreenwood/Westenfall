@@ -18,6 +18,8 @@ public class PlayerAbilities : MonoBehaviour
     public delegate void OnCast(string abilityName, float castTime, CastingComplete castingComplete);
     public static OnCast onCast; // used ONLY by cast bar, This is when button is pressed, not when skill is activated
     public delegate void OnCastCancel();
+    public delegate void ControllingMovement(bool isControlling);
+    public ControllingMovement D_ControllingMovement;
     public static OnCastCancel onCastCancel;
     private bool casting = false;
     public delegate void CastingComplete(); // invoked by cast bar when timer is up
@@ -65,7 +67,7 @@ public class PlayerAbilities : MonoBehaviour
             return;
 
         // INPUT
-        if (!casting)
+        if (!casting && !player.Stunned)
         {
             if (Input.GetMouseButtonDown(0) && abilities[0] != null) // primary
             {
@@ -97,6 +99,9 @@ public class PlayerAbilities : MonoBehaviour
     {
         if(abilities[lastIndex].Cast())
         {
+            if (abilities[lastIndex] is Movement)
+                D_ControllingMovement?.Invoke(true);
+
             StartCoroutine(CooldownManager(lastIndex));
             player.RemoveMana(abilities[lastIndex].GetCost());
         }

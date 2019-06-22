@@ -90,7 +90,7 @@ public class EnemyBehaviorManager : MonoBehaviour
     {
         while(Application.isPlaying)
         {
-            if(currentTarget.player != null)
+            if (currentTarget.player != null)
             {
                 bool usedAbility = false;
                 bool withinRange = false;
@@ -100,21 +100,21 @@ public class EnemyBehaviorManager : MonoBehaviour
 
                 // check if within attack range
                 // get ability index with the lowest range that can currently attack
-                for (int i = 0; i<_abilities.Length;i++) 
+                for (int i = 0; i < _abilities.Length; i++)
                 {
                     float abilityRange = _abilities[i].GetRange();
-
+                    RaycastHit hit;
                     bool inRange = abilityRange > Vector3.Distance(transform.position, currentTarget.player.transform.position);
                     bool inLOS = Physics.Raycast(transform.position,
-                        currentTarget.player.transform.position - transform.position,
-                        abilityRange, playerMask.value);
+                        (currentTarget.player.transform.position - transform.position).normalized, out hit,
+                        abilityRange, ~playerMask) && hit.transform.tag == "Player";
 
                     // chosen ability must be within range, in LOS, available, 
                     // and the lowest range ability that can be cast
                     if (inRange && inLOS && enemyAbilities.IsAvailable(i) &&
                         abilityRange < lowestRange)
                     {
-                        indexToUse = i;                            
+                        indexToUse = i;
                     }
 
                     if (inRange)
@@ -128,8 +128,17 @@ public class EnemyBehaviorManager : MonoBehaviour
                     agent.destination = transform.position;
                 }
 
-                if (!usedAbility && !withinRange) // no available abilities within range, move towards tracked player
-                    SetNavTarget();
+                //
+                { 
+                    RaycastHit hit;
+                    bool inLOS = Physics.Raycast(transform.position,
+                        (currentTarget.player.transform.position - transform.position).normalized, out hit,
+                        Mathf.Infinity, ~playerMask) && hit.transform.tag == "Player";
+
+                    if ((!usedAbility && !withinRange) || !inLOS) // no available abilities within range, move towards tracked player
+                        SetNavTarget();
+                }
+                //
             }
 
             yield return new WaitForFixedUpdate();
@@ -145,7 +154,10 @@ public class EnemyBehaviorManager : MonoBehaviour
         {
             if(!_playersInside[i].hasSeenInLOS)
             {
-                if (Physics.Raycast(transform.position, _playersInside[i].player.transform.position - transform.position, triggerRange, playerMask.value))
+                RaycastHit hit;
+                if (Physics.Raycast(transform.position,
+                        (_playersInside[i].player.transform.position - transform.position).normalized, out hit,
+                        Mathf.Infinity, ~playerMask) && hit.transform.tag == "Player")
                 {
                     _playersInside[i].SetAsSeen();
 
@@ -214,7 +226,10 @@ public class EnemyBehaviorManager : MonoBehaviour
         _playersInside.Add(new Aggro(player));
 
         // if in line of sight, start tracking
-        if (Physics.Raycast(transform.position, other.transform.position - transform.position, Mathf.Infinity, playerMask.value))
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position,
+                (other.transform.position - transform.position).normalized, out hit,
+                Mathf.Infinity, ~playerMask) && hit.transform.tag == "Player")
         {
             if (_playersInside.Count == 1) // this is the first player
                 currentTarget = _playersInside[0]; // make them the current target

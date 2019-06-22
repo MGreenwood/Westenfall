@@ -15,7 +15,7 @@ MonoBehaviour:
   abilityName: Crimson Blade
   cooldown: 0.6
   _classRequirement: 3
-  range: 5
+  range: 15
   cost: 3
   castTime: 0
   damage: 8
@@ -23,6 +23,8 @@ MonoBehaviour:
   tooltipFlavorText: 
   _abilityType: 1
   _abilitySlot: 0
+  _causesKnockback: 0
+  _knockbackPower: 0
   _angle: 45
   _effect:
     effectType: 3

@@ -6,7 +6,7 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] Transform playerCam;
 
-    float lerpAmt = 0.25f;
+    float lerpAmt = 0.4f;
 
     float zOffset;
     Vector3 offset;

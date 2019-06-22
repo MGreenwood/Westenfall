@@ -12,6 +12,7 @@ public class Movement : Ability
     {
        // create the ability object that will control the player
        GameObject ability = Instantiate(_movementAbility, owner.transform);
+        // have the movement gameobject report back
        return true;
     }
 }

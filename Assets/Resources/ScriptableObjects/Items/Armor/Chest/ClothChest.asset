@@ -26,8 +26,8 @@ MonoBehaviour:
   - _stat: 0
     _value: 25
     _isBasicStat: 1
-  - _stat: 6
-    _value: 18
+  - _stat: 8
+    _value: 20
     _isBasicStat: 0
   isMagicItem: 0
   maxStats: 0

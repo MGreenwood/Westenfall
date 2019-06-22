@@ -13,17 +13,23 @@ MonoBehaviour:
   m_Name: CrimsonBladeEnemy
   m_EditorClassIdentifier: 
   abilityName: Crimson Blade
-  cooldown: 0.6
+  cooldown: 2
+  _classRequirement: 0
   range: 5
   cost: 0
   castTime: 0
   damage: 8
-  Class: 3
   tooltipDescription: Drive your blades forward dealing poison damage
   tooltipFlavorText: 
   _abilityType: 1
+  _abilitySlot: 0
+  _causesKnockback: 1
+  _knockbackPower: 1
   _angle: 45
-  _effectType: 0
+  _effect:
+    effectType: 0
+    numTicks: 0
+    value: 0
   _particleSystem: {fileID: 7853273839354257550, guid: afcb3eca04c5bd647ac7cab5b72bb290,
     type: 3}
   hitLayer:

@@ -10,7 +10,6 @@ public class Equipment : MonoBehaviour
     [SerializeField]
     InventoryEquipmentSlot[] _equipmentSlots;
 
-
     Transform _slot;
     Player _player;
 
@@ -26,12 +25,23 @@ public class Equipment : MonoBehaviour
         else return null;
     }
 
+    public Item GetItem(Item.EquipmentSlot slot)
+    {
+        foreach(InventoryEquipmentSlot s in _equipmentSlots)
+        {
+            if (s.GetItem()?.GetEquipmentSlot() == slot)
+                return s.GetItem();
+        }
+
+        return null;
+    }
+
     public void Equip(InventoryItemObject item, ref Attributes playerAttributes)
     {
         Item.EquipmentSlot eSlot = item.GetItem().GetEquipmentSlot();
         int slot = Convert.ToInt32(eSlot);
 
-        Unequip(eSlot, ref playerAttributes);
+        InventoryItemObject oldItem = Unequip(eSlot, ref playerAttributes);
 
         // add the new stats
         if (item.GetItem()?.GetItemType() == Item.ItemType.Weapon)
@@ -71,14 +81,27 @@ public class Equipment : MonoBehaviour
             }
         }
 
+        // equip it
         _equipmentSlots[slot].SetItem(item);
+        item.SetEquipped(true);
+
+        if (oldItem != null)
+        {
+            oldItem.SetEquipped(false);
+            _player.GetInventory().AddExistingItem(oldItem); // put the old item back into the inventory
+        }
     }
 
 
-    public void Unequip(Item.EquipmentSlot eSlot, ref Attributes playerAttributes)
+    public InventoryItemObject Unequip(Item.EquipmentSlot eSlot, ref Attributes playerAttributes)
     {
+        InventoryItemObject oldItem = null;// new InventoryItemObject();
+
         // retrieve the slot that takes that type of item
         int slot = Convert.ToInt32(eSlot);
+
+        if(_equipmentSlots[slot].GetItem() != null)
+            oldItem = _equipmentSlots[slot]?.GetInventoryItemObject();
 
         // retrieve the old stats and remove them from the attributes
         if (_equipmentSlots[slot].GetItem()?.GetItemType() == Item.ItemType.Weapon)
@@ -120,7 +143,9 @@ public class Equipment : MonoBehaviour
             }
 
             _equipmentSlots[slot].SetItemNull();
-        } 
+        }
 
+
+        return oldItem;
     }
 }

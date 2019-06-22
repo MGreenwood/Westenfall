@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PhaseJump : MonoBehaviour
+public class PhaseJump : MonoBehaviour, ICanLimitMovement
 {
     [SerializeField]
     LayerMask BlockingMask;
@@ -12,10 +12,11 @@ public class PhaseJump : MonoBehaviour
     float speed = 1.3f;
 
     Transform player;
+
     // Start is called before the first frame update
     void Start()
     {
-        player = transform.parent;
+        player = Player.instance.transform;
         StartCoroutine(Jump());
     }
 
@@ -23,6 +24,8 @@ public class PhaseJump : MonoBehaviour
     {
         Vector3 startPos = player.position;
         Vector3 goal = player.position + player.forward * distance;
+        float startTime = Time.fixedTime;
+        float timeout = 0.5f;
 
         player.GetComponent<Player>().ActivateInvulnerability(invulTime);
 
@@ -35,13 +38,20 @@ public class PhaseJump : MonoBehaviour
             goal = hit.point + inverseDir * 1f; // move away from impact point and go there instead
         }
 
-        while (Vector3.Distance(player.position, goal) > 0.5f)
+        while (Vector3.Distance(player.position, goal) > 1f && Time.fixedTime < startTime + timeout)
         {
             player.position = Vector3.MoveTowards(player.position, goal, speed);
 
             yield return new WaitForFixedUpdate();
         }
 
+        EndMovement();
         Destroy(gameObject);
+    }
+
+
+    public void EndMovement()
+    {
+        player.GetComponent<PlayerController>().MovementPaused(false);
     }
 }

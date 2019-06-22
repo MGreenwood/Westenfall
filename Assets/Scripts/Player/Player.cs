@@ -21,7 +21,7 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
     int _maxMana = 100;
     int _mana;
     int _level = 20;
-
+    
     class AppliedAttributes
     {
         public int[] values = new int[5]; //Strength, Dexterity, Spirit, Stamina, Magic
@@ -74,7 +74,10 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
     [SerializeField]
     TextMeshProUGUI _statsText;
 
+    // STATUS EFFECTS
     bool isInvulnerable = false;
+    bool _stunned;
+    Coroutine currentStun;
 
     int _temp;
 
@@ -91,6 +94,33 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
         StartCoroutine(MakeInvulnerable(seconds));
     }
 
+    // ----- Knockback
+    public void Knockback(Vector3 source, int power) // power will be either 1, 2, or 3
+    {
+        GetComponent<PlayerController>().Knockback(source, power);
+        Stun(PlayerController.delayTime);
+    }
+    // ----- end Knockback
+
+
+    // ----- STUN
+    public bool Stunned { get { return _stunned; } }
+    public void Stun(float time)
+    {
+        if (currentStun != null)
+            StopCoroutine(currentStun);
+
+        currentStun = StartCoroutine(StunForTime(time));
+    }
+    IEnumerator StunForTime(float time)
+    {
+        _stunned = true;
+        yield return new WaitForSeconds(time);
+        _stunned = false;
+    }
+    // ----- end STUN
+
+    // ----- Invulnerable
     IEnumerator MakeInvulnerable(float seconds)
     {
         yield return new WaitForSeconds(seconds);
@@ -102,6 +132,8 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
     {
         return isInvulnerable;
     }
+    // -----end Invulnerable
+
 
     public event HealthChanged healthChanged;
 
@@ -211,7 +243,11 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
 
         // level requirements
         if (inventoryItemObject.GetItem().GetLevelRequirement() > _level)
+        {
+            Debug.Log($"Requires level {inventoryItemObject.GetItem().GetLevelRequirement()}, you are level {_level}");
             return false;
+        }
+
 
         // actually equip the item
         _equipment.Equip(inventoryItemObject, ref _attributes);

@@ -122,15 +122,21 @@ public class InventoryItemObject : MonoBehaviour,
                 //determine the type of item
                 if (_item is Weapon)
                 {
+
                     if (isEquipped)
                     {
                         // item is equipped, either do nothing or unequip
 
                     }
-                    else if (player.EquipWeapon(this))
+                    else if (!isEquipped)                        
                     {
                         isEquipped = true;
                         player.GetInventory().RemoveFromSlot(_item, _index);
+
+                        if (!player.EquipWeapon(this))
+                        {
+                            player.GetInventory().AddToSlot(_item, _index);
+                        }
                     }
                 }
                 else if (_item is Armor)
@@ -140,13 +146,17 @@ public class InventoryItemObject : MonoBehaviour,
                         // item is equipped, either do nothing or unequip
 
                     }
-                    else if (player.EquipArmor(this))
+                    else if (!isEquipped)
                     {
-
                         isEquipped = true;
                         player.GetInventory().RemoveFromSlot(_item, _index);
+
+                        if (!player.EquipArmor(this))
+                        {
+                            player.GetInventory().AddToSlot(_item, _index);
+                        }
                     }
-                }
+                }                
             }
             else
             {
@@ -169,6 +179,11 @@ public class InventoryItemObject : MonoBehaviour,
         }
 
         _pointerDown = true;
+    }
+
+    public void SetEquipped(bool equipped)
+    {
+        isEquipped = equipped;
     }
 
     void IPointerUpHandler.OnPointerUp(PointerEventData eventData)

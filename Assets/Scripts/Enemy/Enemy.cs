@@ -18,6 +18,8 @@ public class Enemy : MonoBehaviour, IDamageable, IKillable, IHasAttributes
 
     [SerializeField]
     Attributes _attributes;
+
+    [SerializeField]
     public EnemySpawner.EnemyTypes _enemyType;
 
     EnemyBehaviorManager _behaviorManager;
@@ -112,6 +114,8 @@ public class Enemy : MonoBehaviour, IDamageable, IKillable, IHasAttributes
         _behaviorManager.StopAllCoroutines();
         _behaviorManager.enabled = false;
         GetComponent<Collider>().enabled = false;
+
+        GetComponent<LootTable>()?.DropItems();
         //Destroy(gameObject);
     }
 
@@ -121,4 +125,14 @@ public class Enemy : MonoBehaviour, IDamageable, IKillable, IHasAttributes
     }
 
     public Attributes GetAttributes() => _attributes;
+
+    public void Knockback(Vector3 source, int power)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Stun(float time)
+    {
+        throw new NotImplementedException();
+    }
 }

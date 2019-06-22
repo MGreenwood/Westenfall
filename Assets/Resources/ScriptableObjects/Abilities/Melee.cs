@@ -68,6 +68,9 @@ public class Melee : Ability
                         ob.GetComponent<IDamageable>().Damage(damage,
                             _effect, isCrit, owner);
                     }
+
+                    if(_causesKnockback)
+                        ob.GetComponent<IDamageable>().Knockback(owner.transform.position, _knockbackPower);
                 }
             }
         }

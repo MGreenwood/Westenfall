@@ -93,9 +93,13 @@ public class Inventory : MonoBehaviour
         {
             AddItem(Instantiate(Resources.Load<Armor>("ScriptableObjects/Items/Armor/Chest/ClothChest") as Armor));
         }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            OutputInventoryState();
+        }
 
-        // Display inventory index over mouse
-        if (GameManager.instance.Debug)
+            // Display inventory index over mouse
+            if (GameManager.instance.Debug)
         {
             // if inside inventory
             Vector3 mousePos = Input.mousePosition;
@@ -152,6 +156,42 @@ public class Inventory : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void AddExistingItem(InventoryItemObject itemObject)
+    {
+        Image img = itemObject.GetImage();
+
+        // add to first available
+        for (int r = 0; r < _height; r++)
+        {
+            for (int c = 0; c < _width; c++)
+            {
+                Index nx = new Index(c, r);
+                if (TryFit(itemObject.GetItem(), nx))
+                {
+                    AddToSlot(itemObject.GetItem(), nx);
+
+
+                    img.transform.SetParent(transform);
+
+                    Item item = itemObject.GetItem();
+                    img.GetComponent<InventoryItemObject>().init(item, nx);
+
+                    // set size of image
+                    int wid = item.GetItemSize()._width;
+                    int hig = item.GetItemSize()._height;
+                    img.rectTransform.localScale = Vector3.one;
+                    img.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, localSizeOfTile * wid);
+                    img.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, localSizeOfTile * hig);
+
+                    // set position of image
+                    img.rectTransform.localPosition = PositionAtIndex(nx._x, nx._y) - HalfTile();
+
+                    return;
+                }
+            }
+        }
     }
 
     // Add item to this inventory from other inventory or equipment slot

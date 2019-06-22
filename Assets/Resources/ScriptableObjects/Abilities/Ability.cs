@@ -22,6 +22,9 @@ public abstract class Ability : ScriptableObject
     [SerializeField] protected AbilityType _abilityType;
     [SerializeField] protected AbilitySlot _abilitySlot;
 
+    [SerializeField] protected bool _causesKnockback;
+    [SerializeField, Tooltip("1, 2, or 3 describing the severity of the knockback")] protected int _knockbackPower; // 1, 2, or 3
+
     public Ability() { }
 
     public float CastTime { get { return castTime;}}

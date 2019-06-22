@@ -14,8 +14,11 @@ public class InventoryEquipmentSlot : MonoBehaviour, IEquippableArea
     [SerializeField]
     Armor.Slot _armorSlot;
 
+    InventoryItemObject _inventoryItem;
+
     [SerializeField]
     Item _item;
+
 
     public InventoryEquipmentSlot GetEquipmentSlot()
     {
@@ -33,6 +36,8 @@ public class InventoryEquipmentSlot : MonoBehaviour, IEquippableArea
         itemImage.rectTransform.localScale = image.rectTransform.localScale;
         itemImage.rectTransform.sizeDelta = image.rectTransform.sizeDelta;
         itemImage.transform.position = image.transform.position;
+
+        _inventoryItem = item;
     }
 
     public void SetItemNull()
@@ -40,9 +45,8 @@ public class InventoryEquipmentSlot : MonoBehaviour, IEquippableArea
         _item = null;
     }
 
-
     public Item GetItem() => _item;
-
+    public InventoryItemObject GetInventoryItemObject() => _inventoryItem;
 
     public Weapon.Stat[] GetWeaponStats()
     {

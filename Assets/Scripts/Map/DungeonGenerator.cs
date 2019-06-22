@@ -7,7 +7,7 @@ public class DungeonGenerator : MonoBehaviour
     private Room[] _rooms;
     [SerializeField] GameObject _player;
     [SerializeField] GameObject[] _possibleRooms;
-    [SerializeField] GameObject _startingRoom;
+    [SerializeField] GameObject _startingRoom, _endingRoom;
 
     Transform start;
 
@@ -93,7 +93,26 @@ public class DungeonGenerator : MonoBehaviour
             }
         }
 
+        SpawnEndRoom(currentExit);
+
         ReloadRoomList(); // reload list for more spawns
+    }
+
+    public void SpawnEndRoom(Transform currentExit)
+    {
+        GameObject roomOb = Instantiate(_endingRoom, currentExit.position, Quaternion.identity);
+
+        Room room = roomOb.GetComponent<Room>();
+        room.Init();
+        Room.Path[] paths = room.GetPaths();
+
+        roomOb.transform.position -= paths[0].path.localPosition;
+        roomOb.transform.SetParent(transform);
+
+
+        float angle = Vector3.SignedAngle(paths[0].path.transform.forward, -currentExit.forward, Vector3.up);
+        roomOb.transform.RotateAround(paths[0].path.position, Vector3.up, angle);
+        roomOb.isStatic = true;
     }
 
     public void SpawnPlayer()
