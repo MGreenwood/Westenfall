@@ -21,8 +21,11 @@ MonoBehaviour:
   damage: 4
   tooltipDescription: 
   tooltipFlavorText: 
+  _abilityIcon: {fileID: 21300000, guid: b4b81cadbfd16c445962122b4d2d0e20, type: 3}
   _abilityType: 2
   _abilitySlot: 0
+  _causesKnockback: 0
+  _knockbackPower: 0
   prefab: {fileID: 7306148206405213302, guid: 07829b14c5bca714aa71d13e773c6c25, type: 3}
   effect:
     effectType: 0

@@ -22,6 +22,7 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
     int _mana;
     int _level = 20;
     
+    [Serializable]
     class AppliedAttributes
     {
         public int[] values = new int[5]; //Strength, Dexterity, Spirit, Stamina, Magic
@@ -58,9 +59,12 @@ public class Player : MonoBehaviour, IDamageable, ICanInvul, IHasAttributes
 
     //
     // Attributes
+    // stored values
     [SerializeField]
     Attributes _startingAttributes;
     Attributes _attributes; // these are the attributes chosen by the player
+
+    // calculated fields
     AppliedAttributes _appliedAttributes;
     int usedAttributePoints = 0;
     int _availableAttributePoints;

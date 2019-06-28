@@ -21,6 +21,8 @@ public class PlayerAbilities : MonoBehaviour
     public delegate void ControllingMovement(bool isControlling);
     public ControllingMovement D_ControllingMovement;
     public static OnCastCancel onCastCancel;
+    public delegate void OnAbilityChanged();
+    public OnAbilityChanged D_AbilityChanged;
     private bool casting = false;
     public delegate void CastingComplete(); // invoked by cast bar when timer is up
     private CastingComplete castingComplete;

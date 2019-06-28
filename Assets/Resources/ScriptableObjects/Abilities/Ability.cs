@@ -19,6 +19,7 @@ public abstract class Ability : ScriptableObject
 
     [SerializeField] protected string tooltipDescription;
     [SerializeField] protected string tooltipFlavorText;
+    [SerializeField] protected Sprite _abilityIcon;
     [SerializeField] protected AbilityType _abilityType;
     [SerializeField] protected AbilitySlot _abilitySlot;
 
