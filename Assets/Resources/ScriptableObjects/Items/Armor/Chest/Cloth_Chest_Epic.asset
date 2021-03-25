@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ca9d919c2209f8459f36d0c7c83b469, type: 3}
+  m_Name: Cloth_Chest_Epic
+  m_EditorClassIdentifier: 
+  _itemName: Really Cool Chest
+  _flavorText: 
+  _rarity: 4
+  _tier: 2
+  _inventorySprite: {fileID: 21300000, guid: 383a4ee9a785fd94a8a9f91c3110eab2, type: 3}
+  prefab: {fileID: 0}
+  _levelRequirement: 35
+  _slot: 3
+  _armorClass: 1
+  _armorValue: 368
+  _stats:
+  - _stat: 0
+    _value: 25
+    _flatValue: 1
+    _isBasicStat: 0
+  - _stat: 6
+    _value: 20
+    _flatValue: 1
+    _isBasicStat: 0
+  - _stat: 5
+    _value: 20
+    _flatValue: 0
+    _isBasicStat: 0
+  - _stat: 2
+    _value: 48
+    _flatValue: 1
+    _isBasicStat: 0
+  isMagicItem: 1
+  _maxStats: 0
+  _statRequirements: []

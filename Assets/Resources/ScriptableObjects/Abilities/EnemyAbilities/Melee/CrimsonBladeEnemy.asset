@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43a7770c7db27b8419e51c590ce6afc5, type: 3}
+  m_Name: CrimsonBladeEnemy
+  m_EditorClassIdentifier: 
+  abilityName: Crimson Blade
+  cooldown: 2
+  _classRequirement: 0
+  range: 5
+  cost: 0
+  castTime: 0
+  damage: 8
+  tooltipDescription: Drive your blades forward dealing poison damage
+  tooltipFlavorText: 
+  _abilityType: 1
+  _abilitySlot: 0
+  _causesKnockback: 1
+  _knockbackPower: 1
+  _angle: 45
+  _effect:
+    effectType: 0
+    numTicks: 0
+    value: 0
+  _particleSystem: {fileID: 7853273839354257550, guid: afcb3eca04c5bd647ac7cab5b72bb290,
+    type: 3}
+  hitLayer:
+    serializedVersion: 2
+    m_Bits: 4096

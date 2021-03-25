@@ -1,0 +1,81 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1661885562116023260
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1661885562116023250}
+  - component: {fileID: 1661885562116023261}
+  - component: {fileID: 1661885562116023251}
+  m_Layer: 0
+  m_Name: DungeonGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1661885562116023250
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1661885562116023260}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1661885562116023261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1661885562116023260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 634bcb4f89995d44ca9a26b07fc0544d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _player: {fileID: 6881085810633188474, guid: be1e3d6de7b12b04bb747a084696957f, type: 3}
+  _possibleRooms:
+  - {fileID: 4301183347816126407, guid: 22e375b3f3d8f5e4091c9db44dc9e151, type: 3}
+  - {fileID: 4301183347816126407, guid: f908316e1973af64785a7b52bfb89ec0, type: 3}
+  - {fileID: 4301183347816126407, guid: 8035f338dc0436245bdf30c315d86e03, type: 3}
+  - {fileID: 4301183347816126407, guid: b993a5044cc34cc40a948046eafd5ecd, type: 3}
+  - {fileID: 4301183347816126407, guid: 71d56b35638b0be41bd914c083ba4214, type: 3}
+  - {fileID: 4301183347816126407, guid: 2a7545c6c3c047f40b11f984460e6bdb, type: 3}
+  - {fileID: 3728680921866863056, guid: bca1230560e4d9b4099836184cec9021, type: 3}
+  - {fileID: 370238262130058238, guid: b758015c4586db3439329ba1a4327f75, type: 3}
+  - {fileID: 940329620196733928, guid: b70e6000085049147b7c28977c45759e, type: 3}
+  - {fileID: 506555234702376613, guid: 7786437d9e74661439768dc0491923b8, type: 3}
+  - {fileID: 8494919849744958171, guid: 31fda49f423936a408ff2b1a9ebd0667, type: 3}
+  _startingRoom: {fileID: 8576400025250511518, guid: 13bf2e8681936ca479ee7a960769f622,
+    type: 3}
+  _endingRoom: {fileID: 7085452001586196580, guid: 01699d979ab19b746a8fed4fd5227c17,
+    type: 3}
+  _possibleEnemies:
+  - {fileID: 1716201565774647461, guid: 9ab66346810ca0e4696977fa9062b1d5, type: 3}
+  - {fileID: 1716201565774647461, guid: 857ace934767f4742822745640a54e32, type: 3}
+  - {fileID: 1716201565774647461, guid: 81e74d475bd40a949a52a67113e30711, type: 3}
+--- !u!114 &1661885562116023251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1661885562116023260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5efca7565520f446a02023e5f62a222, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Tracked: {fileID: 0}
+  m_Size: {x: 2000, y: 50, z: 4000}
