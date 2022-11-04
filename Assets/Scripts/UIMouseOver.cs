@@ -9,10 +9,12 @@ public class UIMouseOver : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     void IPointerEnterHandler.OnPointerEnter(PointerEventData data)
     {
         UIManager.instance.RegisterOverUI(true);
+        Debug.Log("Entered UI");
     }
 
     void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
     {
         UIManager.instance.RegisterOverUI(false);
+        Debug.Log("Exited UI");
     }
 }

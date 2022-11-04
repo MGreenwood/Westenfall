@@ -6,7 +6,7 @@ public class CameraController : MonoBehaviour
 {
     [SerializeField] Transform playerCam;
 
-    float lerpAmt = 0.4f;
+    float lerpAmt = 0.99f;
 
     float zOffset;
     Vector3 offset;
@@ -15,7 +15,8 @@ public class CameraController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        transform.position = Vector3.Lerp(transform.position, playerCam.position, lerpAmt);
+        transform.position = playerCam.position;
+        //transform.position = Vector3.Lerp(transform.position, playerCam.position, lerpAmt);
 
         Vector3 direction = playerCam.GetComponent<CameraFollowObject>().player.position - transform.position;
         Quaternion toRotation = Quaternion.LookRotation(direction, Vector3.up);

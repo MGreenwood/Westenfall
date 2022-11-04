@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +11,10 @@ public class LookupDictionary : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        if (instance != null)
+            Destroy(gameObject);
+        else
+            instance = this;
     }
 
     // UI
@@ -28,6 +32,14 @@ public class LookupDictionary : MonoBehaviour
     [ColorUsageAttribute(true, true), Tooltip("Colors for each rarity tier")]
     public Color[] colors;
 
+    // the fallback images of an item if not specified
+    [Serializable]
+    public struct ItemImage
+    {
+        public Item.ItemType itemType;
+        public Sprite image;
+    }
+    public ItemImage[] ItemImageDefaults;
 
     // Combat 
     //

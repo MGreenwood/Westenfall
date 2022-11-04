@@ -8,7 +8,7 @@ public class CameraFollowObject : MonoBehaviour
     public Transform player;
     Vector3 offsetDir;
 
-    float distance = 30f, minDist = 15f, maxDist = 40f, zoomSpeed = 1650f, lerpAmt = 0.5f;
+    float distance = 30f, minDist = 15f, maxDist = 40f, zoomSpeed = 1650f, lerpAmt = 1f;
 
     // Start is called before the first frame update
     void Start()

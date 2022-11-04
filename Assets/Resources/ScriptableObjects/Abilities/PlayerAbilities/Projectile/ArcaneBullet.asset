@@ -16,9 +16,9 @@ MonoBehaviour:
   cooldown: 0
   _classRequirement: 2
   range: 60
-  cost: 5
-  castTime: 0.4
-  damage: 3
+  cost: 0
+  castTime: 0
+  damage: 35
   tooltipDescription: Shoots a magical bullet in target direction
   tooltipFlavorText: You can make anything with the magic bullet in one easy step
   _abilityIcon: {fileID: 0}
@@ -26,6 +26,7 @@ MonoBehaviour:
   _abilitySlot: 0
   _causesKnockback: 0
   _knockbackPower: 0
+  animationLocked: 1
   prefab: {fileID: 4512523674601113717, guid: 7cd94734d4de74449a78575c643c326c, type: 3}
   effect:
     effectType: 0

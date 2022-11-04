@@ -83,4 +83,5 @@ public abstract class Item : UnityEngine.ScriptableObject
     public void SetRarity(Rarity r) => _rarity = r;
     public int GetTier() => _tier;
     public void SetTier(int tierIn) => _tier = tierIn;
+    public void SetInventorySprite(Sprite sprite) => _inventorySprite = sprite;
 }

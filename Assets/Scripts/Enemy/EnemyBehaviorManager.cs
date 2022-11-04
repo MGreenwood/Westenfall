@@ -256,7 +256,7 @@ public class EnemyBehaviorManager : MonoBehaviour
             return;
 
         Player player = playerObject.GetComponent<Player>();
-        Aggro playerAggro = _playersInside.Find(x => x.player == player);
+        Aggro playerAggro = _playersInside?.Find(x => x.player == player);
 
         if(playerAggro != null) // player is already in list
         {

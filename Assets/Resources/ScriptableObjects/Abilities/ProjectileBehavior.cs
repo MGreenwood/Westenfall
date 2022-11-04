@@ -11,6 +11,8 @@ public class ProjectileBehavior : MonoBehaviour
     GameObject _owner;
     Ability.AbilityType abilityType;
 
+    [SerializeField]
+    private ParticleSystem particleSystem;
 
     float rotationSpeed = 20f;
     bool dead = false;
@@ -103,7 +105,10 @@ public class ProjectileBehavior : MonoBehaviour
 
     void DestroyOb()
     {
-        Destroy(gameObject, 2); // let particles die
+        Destroy(gameObject, 2f);
+        if (particleSystem != null)
+            particleSystem.Stop();
+
         GetComponent<Rigidbody>().velocity = Vector3.zero;
         GetComponent<Collider>().enabled = false;
         try

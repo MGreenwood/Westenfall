@@ -118,9 +118,8 @@ public class PlayerAbilities : MonoBehaviour
             player.RemoveMana(abilities[lastIndex].GetCost());
         }
 
-        player.GetComponent<PlayerController>().MovementPaused(false);
-
         casting = false;
+        player.GetComponent<PlayerController>().MovementPaused(false);
     }
 
     void ActivateAbility(int index)

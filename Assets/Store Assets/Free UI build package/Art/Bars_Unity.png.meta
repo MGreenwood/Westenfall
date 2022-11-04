@@ -149,9 +149,9 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 0
     wrapV: 0
     wrapW: 0
@@ -247,13 +247,13 @@ TextureImporter:
       name: Bars_Unity_0
       rect:
         serializedVersion: 2
-        x: 3
+        x: 35
         y: 629
-        width: 419
+        width: 387
         height: 94
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 0, y: 28, z: 32, w: 23}
       outline: []
       physicsShape: []
       tessellationDetail: 0

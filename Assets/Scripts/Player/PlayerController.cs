@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     float _startingSpeed = 1000f;
     float _MAX_SPEED = 0f;
     float _startingMaxSpeed = 10f;
-    float _slow = 0.8f;
+    float _slow = 0.85f;
 
     public const float delayTime = 0.3f;
     bool delayMaxSpeed = false;
@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
     public void MovementPaused(bool isPaused)
     {
         _isPaused = isPaused;
-        print("movement paused on object -- " + name);
+        print("movement paused on object -- " + gameObject.name);
     }
 
     private void FixedUpdate()

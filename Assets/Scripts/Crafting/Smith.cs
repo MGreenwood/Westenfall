@@ -101,6 +101,9 @@ public class Smith : CraftingBuilding
         }
 
         rarityBehavior.Roll(currentItem, placement);
+        // apply the default item image for the item type
+        // TODO this needs to be expanded to specific item types within each type
+        currentItem.SetInventorySprite(LookupDictionary.instance.ItemImageDefaults.First(iType => iType.itemType == currentItem.GetItemType()).image);
         DisplayTooltip();
 
         // give player the item
